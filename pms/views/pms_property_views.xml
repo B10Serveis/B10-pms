@@ -7,65 +7,66 @@
             <form string="Property Configuration">
                 <sheet>
                     <div class="o_button_box" name="button_box" />
-                    <label for="name" class="oe_edit_only" />
-                    <h1>
-                        <field name="name" class="oe_inline" />
-                    </h1>
-                    <label for="company_id" />
-                    <field name="company_id" class="oe_inline" />
                     <field name="logo" widget="image" class="oe_avatar" />
-                    <div class="col-6">
-                        <label for="ref" />
-                        <field name="ref" />
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" class="oe_inline" />
+                        </h1>
                     </div>
-                    <div class="col-6">
-                        <label for="pms_property_code" />
-                        <field name="pms_property_code" />
-                    </div>
+                    <group name="property_identification">
+                        <group>
+                            <field name="company_id" />
+                            <field name="ref" />
+                        </group>
+                        <group>
+                            <field name="pms_property_code" />
+                        </group>
+                    </group>
                     <notebook>
                         <page string="General Information" name="property_general">
-                            <div class="o_address_format">
-                                <field
-                                    name="street"
-                                    placeholder="Street..."
-                                    class="o_address_street"
-                                />
-                                <field
-                                    name="street2"
-                                    placeholder="Street 2..."
-                                    class="o_address_street"
-                                />
-                                <field
-                                    name="city"
-                                    placeholder="City"
-                                    class="o_address_city"
-                                />
-                                <field
-                                    name="state_id"
-                                    class="o_address_state"
-                                    placeholder="State"
-                                />
-                                <field
-                                    name="zip"
-                                    placeholder="ZIP"
-                                    class="o_address_zip"
-                                />
-                                <field
-                                    name="country_id"
-                                    placeholder="Country"
-                                    class="o_address_country"
-                                />
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="phone" />
-                                    <field name="phone" />
-                                    <label for="email" />
-                                    <field name="email" />
-                                    <label for="website" />
-                                    <field name="website" />
-                                </div>
-                            </div>
+                            <group>
+                                <group string="Address" name="property_address">
+                                    <label for="street" string="Address" />
+                                    <div class="o_address_format">
+                                        <field
+                                            name="street"
+                                            placeholder="Street..."
+                                            class="o_address_street"
+                                        />
+                                        <field
+                                            name="street2"
+                                            placeholder="Street 2..."
+                                            class="o_address_street"
+                                        />
+                                        <field
+                                            name="city"
+                                            placeholder="City"
+                                            class="o_address_city"
+                                        />
+                                        <field
+                                            name="state_id"
+                                            class="o_address_state"
+                                            placeholder="State"
+                                        />
+                                        <field
+                                            name="zip"
+                                            placeholder="ZIP"
+                                            class="o_address_zip"
+                                        />
+                                        <field
+                                            name="country_id"
+                                            placeholder="Country"
+                                            class="o_address_country"
+                                        />
+                                    </div>
+                                </group>
+                                <group string="Contact" name="property_contact">
+                                    <field name="phone" widget="phone" />
+                                    <field name="email" widget="email" />
+                                    <field name="website" widget="url" />
+                                </group>
+                            </group>
                         </page>
                         <page string="Settings" name="property_settings">
                             <group

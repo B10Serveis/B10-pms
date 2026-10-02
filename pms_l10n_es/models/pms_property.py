@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class PmsProperty(models.Model):
@@ -53,3 +53,19 @@ class PmsProperty(models.Model):
         string="Spanish Tourism Classification",
         help="Spanish tourism classification.",
     )
+
+    @api.onchange("zip_id")
+    def _onchange_zip_id(self):
+        # Delegated res.partner fields do not inherit the partner's UI onchanges.
+        for property_record in self:
+            location = property_record.zip_id
+            if location:
+                property_record.update(
+                    {
+                        "city_id": location.city_id,
+                        "city": location.city_id.name,
+                        "zip": location.name,
+                        "state_id": location.state_id,
+                        "country_id": location.country_id,
+                    }
+                )

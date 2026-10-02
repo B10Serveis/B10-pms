@@ -20,6 +20,7 @@
         "queue_job",
         "base_vat",
         "l10n_es_aeat",
+        "l10n_es_toponyms",
         "pms_partner_second_lastname",
         "pms_partner_identification",
     ],
