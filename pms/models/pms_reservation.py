@@ -1512,15 +1512,28 @@ class PmsReservation(models.Model):
                 record.checkin_partner_count = 0
                 record.checkin_partner_pending_count = 0
 
-    @api.depends("room_type_id", "partner_id", "folio_id.fiscal_position_id")
+    @api.depends(
+        "room_type_id",
+        "partner_id",
+        "folio_id.fiscal_position_id",
+        "company_id",
+        "pms_property_id.company_id",
+    )
     def _compute_tax_ids(self):
         for record in self:
-            record = record.with_company(record.company_id)
+            # The standalone form has no folio until create(), so its related
+            # company is still empty when the client computes editable taxes.
+            company = record.company_id or record.pms_property_id.company_id
+            record = record.with_company(company)
             product = record.room_type_id.product_id
             fiscal_position = record.folio_id.fiscal_position_id
+            if not record.folio_id:
+                fiscal_position = record.env[
+                    "account.fiscal.position"
+                ]._get_fiscal_position(record.partner_id)
             record.tax_ids = fiscal_position.map_tax(
                 product.taxes_id.filtered(
-                    lambda t, r=record: t.company_id == r.company_id
+                    lambda t, c=company: t.company_id == c
                 )
             )
 
