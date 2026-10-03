@@ -765,6 +765,7 @@ class TestPmsPricelist(TestPms):
             {
                 "pms_property_ids": [self.pms_property1.id],
                 "compute_price": "fixed",
+                "fixed_price": self.room_type1.min_price,
                 "applied_on": "0_product_variant",
                 "product_id": self.room_type1.product_id.id,
                 "date_start_consumption": datetime.date.today(),
