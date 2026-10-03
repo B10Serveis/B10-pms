@@ -2702,91 +2702,62 @@ class PmsFolio(models.Model):
         return possible_customer
 
     def _create_payment_transaction(self, vals):
-        # Ensure the currencies are the same.
+        """Create a folio payment with the Odoo 16 provider/token API."""
+        if not self:
+            raise ValidationError(_("Select at least one folio to pay."))
+        vals = dict(vals)
         currency = self[0].currency_id
+        partner = self[0].partner_id or self.env.ref("pms.various_pms_partner")
+        company = self[0].company_id
         if any(folio.currency_id != currency for folio in self):
             raise ValidationError(
-                _(
-                    "A transaction can't be linked to folios"
-                    " having different currencies."
+                _("A transaction cannot link folios with different currencies.")
+            )
+        if any((folio.partner_id or partner) != partner for folio in self):
+            raise ValidationError(
+                _("A transaction cannot link folios with different partners.")
+            )
+        if any(folio.company_id != company for folio in self):
+            raise ValidationError(
+                _("A transaction cannot link folios with different companies.")
+            )
+        token = self.env["payment.token"].sudo().browse(vals.get("token_id")).exists()
+        provider = self.env["payment.provider"].browse(vals.get("provider_id")).exists()
+        if vals.get("provider_id") and not provider:
+            raise ValidationError(_("The payment provider is invalid."))
+        if token:
+            if (
+                not token.active
+                or token.partner_id.commercial_partner_id
+                != partner.commercial_partner_id
+                or (provider and token.provider_id != provider)
+            ):
+                raise ValidationError(
+                    _("The payment token does not match the folio customer or provider.")
                 )
-            )
-
-        # Ensure the partner are the same.
-        partner = self[0].partner_id
-        if any(folio.partner_id != partner for folio in self):
+            provider = provider or token.provider_id
+        elif vals.get("token_id"):
+            raise ValidationError(_("The payment token is invalid."))
+        if not provider or provider.state not in ("enabled", "test"):
+            raise ValidationError(_("An enabled payment provider is required."))
+        if not provider.journal_id:
             raise ValidationError(
-                _("A transaction can't be linked to folios having different partners.")
+                _("A journal must be specified for the payment provider.")
             )
-
-        # Try to retrieve the acquirer. However, fallback to the token's acquirer.
-        acquirer_id = vals.get("acquirer_id")
-        acquirer = None
-        payment_token_id = vals.get("payment_token_id")
-
-        if payment_token_id:
-            payment_token = self.env["payment.token"].sudo().browse(payment_token_id)
-
-            # Check payment_token/acquirer matching or take the acquirer from token
-            if acquirer_id:
-                acquirer = self.env["payment.provider"].browse(acquirer_id)
-                if payment_token and payment_token.acquirer_id != acquirer:
-                    raise ValidationError(
-                        _(
-                            "Invalid token found! Token"
-                            "acquirer %(token_acquirer)s != %(acquirer)s"
-                        )
-                        % {
-                            "token_acquirer": payment_token.acquirer_id.name,
-                            "acquirer": acquirer.name,
-                        }
-                    )
-                if payment_token and payment_token.partner_id != partner:
-                    raise ValidationError(
-                        _(
-                            "Invalid token found! Token"
-                            "partner %(token_partner)s != %(partner)s"
-                        )
-                        % {
-                            "token_partner": payment_token.partner.name,
-                            "partner": partner.name,
-                        }
-                    )
-            else:
-                acquirer = payment_token.acquirer_id
-
-        # Check an acquirer is there.
-        if not acquirer_id and not acquirer:
-            raise ValidationError(
-                _("A payment acquirer is required to create a transaction.")
-            )
-
-        if not acquirer:
-            acquirer = self.env["payment.provider"].browse(acquirer_id)
-
-        # Check a journal is set on acquirer.
-        if not acquirer.journal_id:
-            raise ValidationError(
-                _("A journal must be specified for the acquirer %s.", acquirer.name)
-            )
-
-        if not acquirer_id and acquirer:
-            vals["acquirer_id"] = acquirer.id
-
+        amount = sum(self.mapped("pending_amount"))
+        if currency.compare_amounts(amount, 0) <= 0:
+            raise ValidationError(_("There is no outstanding amount to pay."))
         vals.update(
-            {
-                "amount": sum(self.mapped("amount_total")),
-                "currency_id": currency.id,
-                "partner_id": partner.id,
-                "folio_ids": [(6, 0, self.ids)],
-            }
+            provider_id=provider.id,
+            amount=amount,
+            currency_id=currency.id,
+            partner_id=partner.id,
+            folio_ids=[(6, 0, self.ids)],
         )
+        vals["operation"] = "offline" if token else vals.get("operation", "online_redirect")
         transaction = self.env["payment.transaction"].create(vals)
-
-        # Process directly if payment_token
-        if transaction.payment_token_id:
-            transaction.s2s_do_transaction()
-
+        if token:
+            transaction._send_payment_request()
         return transaction
 
     def _get_default_payment_link_values(self):

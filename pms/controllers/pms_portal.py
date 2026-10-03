@@ -1,9 +1,11 @@
+import math
+
 from odoo import _, http
 from odoo.exceptions import AccessError, MissingError, ValidationError
 from odoo.fields import Command
 from odoo.http import request
 
-from odoo.addons.account.controllers.portal import PortalAccount
+from odoo.addons.account_payment.controllers.portal import PortalAccount
 from odoo.addons.payment import utils as payment_utils
 from odoo.addons.payment.controllers import portal as payment_portal
 from odoo.addons.portal.controllers.portal import CustomerPortal
@@ -28,47 +30,47 @@ class PortalFolio(CustomerPortal):
         return values
 
     def _folio_get_page_view_values(self, folio, access_token, **kwargs):
-        values = {"folio": folio, "token": access_token}
-        payment_inputs = (
-            request.env["payment.provider"]
-            .sudo()
-            ._get_available_payment_input(
-                partner=folio.partner_id, company=folio.company_id
-            )
+        logged_in = not request.env.user._is_public()
+        partner = request.env.user.partner_id if logged_in else folio.partner_id
+        partner = partner or request.env.ref("pms.various_pms_partner")
+        providers = request.env["payment.provider"].sudo()._get_compatible_providers(
+            folio.company_id.id,
+            partner.id,
+            folio.pending_amount,
+            currency_id=folio.currency_id.id,
+            pms_property_id=folio.pms_property_id.id,
         )
-        acquirers = payment_inputs.get("acquirers")
-        for acquirer in acquirers:
-            if (
-                acquirer.pms_property_ids
-                and folio.pms_property_id.id not in acquirer.pms_property_ids.ids
-            ):
-                payment_inputs["acquirers"] -= acquirer
-        values.update(payment_inputs)
-        is_public_user = request.env.user._is_public()
-        if is_public_user:
-            payment_inputs.pop("pms", None)
-            token_count = (
-                request.env["payment.token"]
-                .sudo()
-                .search_count(
-                    [
-                        ("acquirer_id.company_id", "=", folio.company_id.id),
-                        ("partner_id", "=", folio.partner_id.id),
-                        "|",
-                        (
-                            "acquirer_id.pms_property_ids",
-                            "in",
-                            folio.pms_property_id.id,
-                        ),
-                        ("acquirer_id.pms_property_ids", "=", False),
-                    ]
+        if not payment_portal.PaymentPortal._can_partner_pay_in_company(
+            partner, folio.company_id
+        ):
+            providers = providers.browse([])
+        tokens = request.env["payment.token"].sudo().search(
+            [("provider_id", "in", providers.ids), ("partner_id", "=", partner.id)]
+        )
+        values = {
+            "folio": folio,
+            "token": access_token,
+            "providers": providers,
+            "tokens": tokens if logged_in else tokens.browse([]),
+            "existing_token": bool(tokens) if not logged_in else False,
+            "fees_by_provider": {
+                provider: provider._compute_fees(
+                    folio.pending_amount, folio.currency_id, partner.country_id
                 )
-            )
-            values["existing_token"] = token_count > 0
-        values.update(payment_inputs)
-        values["partner_id"] = (
-            folio.partner_id if is_public_user else request.env.user.partner_id,
-        )
+                for provider in providers.filtered("fees_active")
+            },
+            "show_tokenize_input": (
+                payment_portal.PaymentPortal._compute_show_tokenize_input_mapping(
+                    providers, logged_in=logged_in
+                )
+            ),
+            "amount": folio.pending_amount,
+            "currency": folio.currency_id,
+            "partner_id": partner.id,
+            "access_token": access_token,
+            "transaction_route": f"/my/folios/{folio.id}/transaction",
+            "landing_route": folio.get_portal_url(),
+        }
         return self._get_page_view_values(
             folio, access_token, values, "my_folios_history", False, **kwargs
         )
@@ -164,9 +166,7 @@ class PortalFolio(CustomerPortal):
             "backend_url": backend_url,
             "res_company": folio_sudo.company_id,
         }
-        values = self._get_page_view_values(
-            folio_sudo, access_token, values, "my_folios_history", False, **kw
-        )
+        values.update(self._folio_get_page_view_values(folio_sudo, access_token, **kw))
         if "custom_amount" in kw:
             values["custom_amount"] = float(kw["custom_amount"])
         return request.render("pms.folio_portal_template", values)
@@ -174,48 +174,28 @@ class PortalFolio(CustomerPortal):
 
 class PaymentPortal(payment_portal.PaymentPortal):
     @http.route("/my/folios/<int:folio_id>/transaction", type="json", auth="public")
-    def portal_folio_transaction(self, pms_folio_id, access_token, **kwargs):
-        """Create a draft transaction and return its processing values.
-
-        :param int pms_folio_id: The folio to pay, as a `pms.folio` id
-        :param str access_token: The access token used to authenticate the request
-        :param dict kwargs: Locally unused data passed to `_create_transaction`
-        :return: The mandatory values for the processing of the transaction
-        :rtype: dict
-        :raise: ValidationError if the invoice id or the access token is invalid
-        """
-        # Check the order id and the access token
+    def portal_folio_transaction(self, folio_id, access_token=None, **kwargs):
+        """Create a transaction for an accessible folio using Odoo 16 payment inputs."""
         try:
-            folio_sudo = self._document_check_access(
-                "pms.folio", pms_folio_id, access_token
-            )
-        except MissingError as error:
-            raise error
+            folio = self._document_check_access("pms.folio", folio_id, access_token)
         except AccessError as error:
             raise ValidationError(_("The access token is invalid.")) from error
-
+        logged_in = not request.env.user._is_public()
+        partner = request.env.user.partner_id if logged_in else folio.partner_id
+        partner = partner or request.env.ref("pms.various_pms_partner")
         kwargs.update(
-            {
-                "reference_prefix": None,
-                # Allow the reference to be computed based on the order
-                "partner_id": (
-                    folio_sudo.partner_id.id
-                    if folio_sudo.partner_id
-                    else self.env.ref("pms.various_pms_partner").id
-                ),
-                "pms_folio_id": pms_folio_id,
-                # Include the Folio to allow Subscriptions tokenizing the tx
-            }
+            reference_prefix=None,
+            currency_id=folio.currency_id.id,
+            partner_id=partner.id,
+            pms_folio_id=folio.id,
+            is_validation=False,
+            landing_route=folio.get_portal_url(),
         )
-        kwargs.pop(
-            "custom_create_values", None
-        )  # Don't allow passing arbitrary create values
-        tx_sudo = self._create_transaction(
-            custom_create_values={"folio_ids": [Command.set([pms_folio_id])]},
-            **kwargs,
+        kwargs.pop("custom_create_values", None)
+        tx = self._create_transaction(
+            custom_create_values={"folio_ids": [Command.set(folio.ids)]}, **kwargs
         )
-
-        return tx_sudo._get_processing_values()
+        return tx._get_processing_values()
 
     # Payment overrides
 
@@ -272,6 +252,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
                     ),
                     "company_id": folio_sudo.company_id.id,
                     "pms_folio_id": pms_folio_id,
+                    "pms_property_id": folio_sudo.pms_property_id.id,
                 }
             )
         return super().payment_pay(
@@ -279,14 +260,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
         )
 
     def _get_custom_rendering_context_values(self, pms_folio_id=None, **kwargs):
-        """Override of payment to add the sale order id in the custom
-        rendering context values.
-
-        :param int sale_order_id: The sale order for which a payment
-        id made, as a `sale.order` id
-        :return: The extended rendering context values
-        :rtype: dict
-        """
+        """Pass the folio ID to the Odoo 16 checkout form."""
         rendering_context_values = super()._get_custom_rendering_context_values(
             pms_folio_id=pms_folio_id, **kwargs
         )
@@ -296,30 +270,81 @@ class PaymentPortal(payment_portal.PaymentPortal):
         return rendering_context_values
 
     def _create_transaction(
-        self, *args, pms_folio_id=None, custom_create_values=None, **kwargs
+        self,
+        payment_option_id,
+        reference_prefix,
+        amount,
+        currency_id,
+        partner_id,
+        flow,
+        tokenization_requested,
+        landing_route,
+        is_validation=False,
+        custom_create_values=None,
+        pms_folio_id=None,
+        **kwargs,
     ):
-        """Override of payment to add the sale order id in the custom create values.
-
-        :param int sale_order_id: The sale order for which a payment id made,
-        as a `sale.order` id
-        :param dict custom_create_values: Additional create values overwriting
-        the default ones
-        :return: The result of the parent method
-        :rtype: recordset of `payment.transaction`
-        """
         if pms_folio_id:
-            if custom_create_values is None:
-                custom_create_values = {}
-            # As this override is also called if the flow is initiated
-            # from sale or website_sale, we
-            # need not to override whatever value these modules could have already set
+            amount = self._cast_as_float(amount)
+            folio = request.env["pms.folio"].sudo().browse(int(pms_folio_id)).exists()
+            partner = request.env["res.partner"].sudo().browse(partner_id).exists()
+            folio_partner = folio.partner_id or request.env.ref(
+                "pms.various_pms_partner"
+            )
             if (
-                "folio_ids" not in custom_create_values
-            ):  # We are in the payment module's flow
-                custom_create_values["folio_ids"] = [Command.set([int(pms_folio_id)])]
+                not folio
+                or not partner
+                or partner.commercial_partner_id != folio_partner.commercial_partner_id
+                or currency_id != folio.currency_id.id
+                or is_validation
+                or folio.state == "cancel"
+                or not amount
+                or not math.isfinite(amount)
+                or folio.currency_id.compare_amounts(amount, 0) <= 0
+                or folio.currency_id.compare_amounts(amount, folio.pending_amount) > 0
+            ):
+                raise ValidationError(_("The provided payment parameters are invalid."))
+            if flow == "token":
+                if request.env.user._is_public():
+                    raise AccessError(_("Sign in to pay with a saved payment method."))
+                token = (
+                    request.env["payment.token"].sudo()
+                    .browse(payment_option_id).exists()
+                )
+                if not token or not token.active:
+                    raise ValidationError(_("The payment token is invalid."))
+                provider = token.provider_id
+            else:
+                provider = (
+                    request.env["payment.provider"].sudo().browse(payment_option_id)
+                )
+            compatible = (
+                request.env["payment.provider"].sudo()._get_compatible_providers(
+                    folio.company_id.id,
+                    partner_id,
+                    amount,
+                    currency_id=currency_id,
+                    pms_property_id=folio.pms_property_id.id,
+                )
+            )
+            if provider not in compatible:
+                raise ValidationError(
+                    _("The payment provider is not available for this folio.")
+                )
+            custom_create_values = dict(custom_create_values or {})
+            custom_create_values["folio_ids"] = [Command.set(folio.ids)]
+            if request.env.user._is_public():
+                tokenization_requested = False
         return super()._create_transaction(
-            *args,
-            pms_folio_id=pms_folio_id,
+            payment_option_id,
+            reference_prefix,
+            amount,
+            currency_id,
+            partner_id,
+            flow,
+            tokenization_requested,
+            landing_route,
+            is_validation=is_validation,
             custom_create_values=custom_create_values,
             **kwargs,
         )
@@ -454,14 +479,6 @@ class PortalAccount(PortalAccount):
 
         invoice_sudo = invoice_sudo.with_context(proforma=True)
         values = self._invoice_get_page_view_values(invoice_sudo, access_token, **kw)
-        acquirers = values.get("acquirers")
-        if acquirers:
-            country_id = (
-                values.get("partner_id") and values.get("partner_id")[0].country_id.id
-            )
-            values["acq_extra_fees"] = acquirers.get_acquirer_extra_fees(
-                invoice_sudo.amount_residual, invoice_sudo.currency_id, country_id
-            )
         return request.render("pms.pms_proforma_invoice_template", values)
 
     def _invoice_get_page_view_values(self, invoice, access_token, **kwargs):
@@ -469,17 +486,33 @@ class PortalAccount(PortalAccount):
         Override to add the pms property filter
         """
         values = super()._invoice_get_page_view_values(invoice, access_token, **kwargs)
-        acquirers = values.get("acquirers")
-        if acquirers:
-            for acquirer in acquirers:
-                if (
-                    acquirer.pms_property_ids
-                    and invoice.pms_property_id.id not in acquirer.pms_property_ids.ids
-                ):
-                    values["acquirers"] -= acquirer
-        payment_tokens = values.get("payment_tokens")
-        if payment_tokens:
-            for pms in payment_tokens:
-                if pms.acquirer_id not in values["acquirers"].ids:
-                    values["pms"] -= pms
+        providers = values.get("providers")
+        if providers is not None:
+            providers = providers.filtered(
+                lambda provider: not provider.pms_property_ids
+                or invoice.pms_property_id in provider.pms_property_ids
+            )
+            values["providers"] = providers
+            values["tokens"] = values.get(
+                "tokens", request.env["payment.token"]
+            ).filtered(
+                lambda token: token.provider_id in providers
+            )
+            values["fees_by_provider"] = {
+                provider: fee
+                for provider, fee in values.get("fees_by_provider", {}).items()
+                if provider in providers
+            }
+            values["show_tokenize_input"] = {
+                provider_id: show
+                for provider_id, show in values.get("show_tokenize_input", {}).items()
+                if provider_id in providers.ids
+            }
+            if request.env.user._is_public():
+                values["existing_token"] = bool(
+                    request.env["payment.token"].sudo().search_count([
+                        ("provider_id", "in", providers.ids),
+                        ("partner_id", "=", invoice.partner_id.id),
+                    ])
+                )
         return values

@@ -1,4 +1,6 @@
 from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.fields import Command
 
 
 class PaymentTransaction(models.Model):
@@ -17,33 +19,50 @@ class PaymentTransaction(models.Model):
         compute="_compute_folio_ids_nbr", string="# of Folios"
     )
 
-    def _create_payment(self):
+    def _create_payment(self, **extra_create_values):
         self.ensure_one()
-        return super()._create_payment(folio_ids=self.folio_ids)
+        extra_create_values["folio_ids"] = [Command.set(self.folio_ids.ids)]
+        return super()._create_payment(**extra_create_values)
 
-    def render_folio_button(
-        self, folio, submit_txt=None, render_values=None, custom_amount=None
-    ):
-        values = {
-            "partner_id": (
-                folio.partner_id.id or self.env.ref("pms.various_pms_partner").id
-            ),
-            "type": self.type,
-        }
-        if render_values:
-            values.update(render_values)
-        return (
-            self.acquirer_id.with_context(
-                submit_class="btn btn-primary", submit_txt=submit_txt or _("Pay Now")
+    @api.constrains(
+        "folio_ids", "invoice_ids", "provider_id", "partner_id", "currency_id", "token_id"
+    )
+    def _check_pms_payment_documents(self):
+        for tx in self:
+            properties = (
+                tx.folio_ids.mapped("pms_property_id")
+                | tx.invoice_ids.mapped("pms_property_id")
             )
-            .sudo()
-            .render(
-                self.reference,
-                custom_amount or folio.pending_amount,
-                folio.currency_id.id,
-                values=values,
-            )
-        )
+            if not properties:
+                continue
+            provider = tx.provider_id
+            if any(
+                prop.company_id != provider.company_id
+                or (provider.pms_property_ids and prop not in provider.pms_property_ids)
+                for prop in properties
+            ):
+                raise ValidationError(
+                    _("The payment provider is not available for these documents.")
+                )
+            if any(folio.currency_id != tx.currency_id for folio in tx.folio_ids):
+                raise ValidationError(
+                    _("The transaction and folios must use the same currency.")
+                )
+            for folio in tx.folio_ids:
+                partner = folio.partner_id or self.env.ref("pms.various_pms_partner")
+                if partner.commercial_partner_id != tx.partner_id.commercial_partner_id:
+                    raise ValidationError(
+                        _("The transaction partner does not match the folio customer.")
+                    )
+            if tx.token_id and (
+                tx.token_id.provider_id != provider
+                or tx.token_id.partner_id.commercial_partner_id
+                != tx.partner_id.commercial_partner_id
+                or not tx.token_id.active
+            ):
+                raise ValidationError(
+                    _("The payment token does not match the transaction.")
+                )
 
     @api.model
     def _compute_reference_prefix(self, provider_code, separator, **values):

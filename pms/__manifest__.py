@@ -27,6 +27,7 @@
         "web_timeline",
         "analytic",
         "account",
+        "account_payment",
         "sale",
     ],
     "data": [
