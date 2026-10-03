@@ -19,7 +19,7 @@ class PortalFolio(CustomerPortal):
             values["folio_count"] = (
                 Folio.search_count(
                     [
-                        ("partner_id", "=", partner.id),
+                        ("partner_id", "child_of", partner.commercial_partner_id.id),
                     ]
                 )
                 if Folio.check_access_rights("read", raise_exception=False)
@@ -87,11 +87,11 @@ class PortalFolio(CustomerPortal):
         PmsFolio = request.env["pms.folio"]
         values["folios"] = PmsFolio.search(
             [
-                ("partner_id", "child_of", partner.id),
+                ("partner_id", "child_of", partner.commercial_partner_id.id),
             ]
         )
         domain = [
-            ("partner_id", "child_of", partner.id),
+            ("partner_id", "child_of", partner.commercial_partner_id.id),
         ]
         searchbar_sortings = {
             "date": {"label": _("Order Date"), "folio": "date_order desc"},
@@ -334,7 +334,7 @@ class PortalReservation(CustomerPortal):
             values["reservation_count"] = (
                 Reservation.search_count(
                     [
-                        ("partner_id", "=", partner.id),
+                        ("partner_id", "child_of", partner.commercial_partner_id.id),
                     ]
                 )
                 if Reservation.check_access_rights("read", raise_exception=False)
@@ -365,11 +365,11 @@ class PortalReservation(CustomerPortal):
         Reservation = request.env["pms.reservation"]
         values["reservations"] = Reservation.search(
             [
-                ("partner_id", "child_of", partner.id),
+                ("partner_id", "child_of", partner.commercial_partner_id.id),
             ]
         )
         domain = [
-            ("partner_id", "child_of", partner.id),
+            ("partner_id", "child_of", partner.commercial_partner_id.id),
         ]
         if date_begin and date_end:
             domain += [

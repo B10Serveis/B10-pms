@@ -50,3 +50,4 @@ from . import test_view_check_pms_properties
 from . import test_account_move_line_property
 
 from . import test_reservation_taxes
+from . import test_pms_portal_security
