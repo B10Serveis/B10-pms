@@ -1,18 +1,39 @@
 
-[![Support the OCA](https://odoo-community.org/readme-banner-image)](https://odoo-community.org/get-involved?utm_source=repo-readme)
+# B10 PMS
 
-# pms
-[![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/pms&target_branch=16.0)
-[![Pre-commit Status](https://github.com/OCA/pms/actions/workflows/pre-commit.yml/badge.svg?branch=16.0)](https://github.com/OCA/pms/actions/workflows/pre-commit.yml?query=branch%3A16.0)
-[![Build Status](https://github.com/OCA/pms/actions/workflows/test.yml/badge.svg?branch=16.0)](https://github.com/OCA/pms/actions/workflows/test.yml?query=branch%3A16.0)
-[![codecov](https://codecov.io/gh/OCA/pms/branch/16.0/graph/badge.svg)](https://codecov.io/gh/OCA/pms)
-[![Translation Status](https://translation.odoo-community.org/widgets/pms-16-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/pms-16-0/?utm_source=widget)
+Sistema de gestió d'establiments per a Odoo 16.
 
-<!-- /!\ do not modify above this line -->
+Aquest repositori és un projecte independent que parteix del codi de la branca
+16.0 d'[OCA/pms](https://github.com/OCA/pms). A partir d'aquesta separació,
+el desenvolupament, l'arquitectura i les versions es gestionen segons les
+necessitats pròpies de B10 PMS.
 
-Property Management System on Odoo.
+## Criteri de desenvolupament
 
-<!-- /!\ do not modify below this line -->
+- La separació d'OCA és total: no es preveu sincronitzar el repositori,
+  recuperar-ne canvis ni mantenir compatibilitat amb la seva evolució futura.
+- Els desenvolupaments es fan directament a `pms` o al mòdul corresponent
+  d'aquest repositori. Es poden modificar i refactoritzar parts importants
+  del nucli quan les necessitats del projecte ho requereixin.
+- No es creen mòduls auxiliars per evitar modificar el nucli. Els mòduls
+  existents es mantenen segons la seva funció dins del projecte.
+- Es conserven els noms tècnics dels mòduls i els identificadors XML per
+  mantenir la compatibilitat amb les instal·lacions existents. Qualsevol canvi
+  que l'afecti ha d'incloure la migració corresponent.
+- Les versions i el registre de canvis són propis del projecte i han de
+  permetre identificar què s'ha desplegat.
+- Els canvis es treballen en branques de desenvolupament i es revisen i
+  validen abans d'integrar-los a la branca estable.
+- Les actualitzacions que afectin models, camps, restriccions o processos de
+  reserves i facturació s'assagen en una còpia de la base de dades abans
+  d'aplicar-les a producció.
+
+L'historial, els avisos de copyright i les atribucions originals es conserven
+com a reconeixement de la procedència del codi.
+
+La versió `16.0.5.0.0` de `pms` marca l'inici de l'etapa independent de B10 PMS,
+posterior a la versió `16.0.4.24.0` de partida. Les versions següents seguiran
+una numeració pròpia dins de la sèrie d'Odoo 16.
 
 <!-- prettier-ignore-start -->
 
@@ -23,7 +44,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [multi_pms_properties](multi_pms_properties/) | 16.0.1.0.1 |  | Multi Properties Manager
-[pms](pms/) | 16.0.4.24.0 |  | A property management system
+[pms](pms/) | 16.0.5.0.0 |  | A property management system
 [pms_account_move_budget](pms_account_move_budget/) | 16.0.1.0.0 |  | Add Property Field in Account Move Budget
 [pms_hr_property](pms_hr_property/) | 16.0.1.0.0 |  | Adds to the employee the property on which he works.
 [pms_l10n_es](pms_l10n_es/) | 16.0.2.4.0 |  | PMS Spanish Adaptation
@@ -37,15 +58,10 @@ addon | version | maintainers | summary
 
 <!-- prettier-ignore-end -->
 
-## Licenses
+## Llicències
 
-This repository is licensed under [AGPL-3.0](LICENSE).
+Aquest repositori es distribueix sota la llicència [AGPL-3.0](LICENSE).
 
-However, each module can have a totally different license, as long as they adhere to Odoo Community Association (OCA)
-policy. Consult each module's `__manifest__.py` file, which contains a `license` key
-that explains its license.
-
-----
-OCA, or the [Odoo Community Association](http://odoo-community.org/), is a nonprofit
-organization whose mission is to support the collaborative development of Odoo features
-and promote its widespread use.
+Consulteu la clau `license` del fitxer `__manifest__.py` de cada mòdul per
+conèixer la seva llicència específica. La separació del projecte no modifica
+les llicències ni elimina les atribucions del codi original.
