@@ -197,7 +197,6 @@ class PmsService(models.Model):
         help="Discount of total price",
         readonly=False,
         store=True,
-        digits=("Discount"),
         compute="_compute_discount",
         inverse="_inverse_discount",
     )

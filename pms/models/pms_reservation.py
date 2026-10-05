@@ -612,7 +612,6 @@ class PmsReservation(models.Model):
         help="Discount of total price in reservation",
         readonly=False,
         store=True,
-        digits=("Discount"),
         compute="_compute_discount",
         tracking=True,
     )
@@ -621,7 +620,6 @@ class PmsReservation(models.Model):
         help="Services discount",
         readonly=False,
         store=True,
-        digits=("Discount"),
         compute="_compute_services_discount",
         tracking=True,
     )

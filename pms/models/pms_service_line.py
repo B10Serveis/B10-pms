@@ -73,7 +73,6 @@ class PmsServiceLine(models.Model):
     price_unit = fields.Monetary(
         string="Unit Price",
         help="Price per unit of service",
-        digits=("Product Price"),
     )
     price_day_subtotal = fields.Monetary(
         string="Subtotal",

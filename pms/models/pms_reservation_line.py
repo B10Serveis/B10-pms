@@ -77,7 +77,6 @@ class PmsReservationLine(models.Model):
         help="The price in a reservation line",
         store=True,
         readonly=False,
-        digits=("Product Price"),
         compute="_compute_price",
     )
     cancel_discount = fields.Float(
