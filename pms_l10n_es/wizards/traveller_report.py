@@ -40,7 +40,10 @@ def replace_multiple_spaces(text: str) -> str:
 
 
 def clean_string_only_letters(string):
-    clean_string = re.sub(r"[^a-zA-Z\s]", "", string).upper()
+    clean_string = "".join(
+        character for character in (string or "")
+        if character.isalpha() or character.isspace()
+    ).upper()
     clean_string = " ".join(clean_string.split())
     return clean_string
 
@@ -423,7 +426,7 @@ class TravellerReport(models.TransientModel):
         domain="""
             [
                 ('pms_property_id', '=', pms_property_id),
-                ('institution_independent_account, '=', True),
+                ('institution_independent_account', '=', True),
                 ('institution', '=', 'ses')
             ]
         """,
@@ -553,12 +556,11 @@ class TravellerReport(models.TransientModel):
             ("pms_property_id", "=", pms_property_id),
             ("state", "!=", "cancel"),
             ("reservation_type", "!=", "out"),
-            "|",
             ("date_order", ">=", date_from),
-            ("date_order", "<=", date_to),
+            ("date_order", "<", fields.Date.to_date(date_to) + relativedelta(days=1)),
         ]
         if room_id:
-            domain.append(("preferred_room_id.room_id", "=", room_id))
+            domain.append(("preferred_room_id", "=", room_id))
         reservation_ids = self.env["pms.reservation"].search(domain).mapped("id")
         return self.generate_xml_reservations(reservation_ids)
 
@@ -630,7 +632,7 @@ class TravellerReport(models.TransientModel):
             ("checkin", "=", date_target),
         ]
         if room_id:
-            domain.append(("preferred_room_id.room_id", "=", room_id))
+            domain.append(("preferred_room_id", "=", room_id))
         reservation_ids = self.env["pms.reservation"].search(domain).mapped("id")
         return self.generate_xml_reservations_travellers_report(reservation_ids)
 
@@ -744,10 +746,9 @@ class TravellerReport(models.TransientModel):
             ("send_attempt_count", "<", 3),
         ]
         if pms_ses_communication_id:
-            # Send by 100 at a time
-            # to avoid sending too many requests at once
-            domain.append(("id", "=", pms_ses_communication_id), limit=100)
-        for communication in self.env["pms.ses.communication"].search(domain):
+            domain.append(("id", "=", pms_ses_communication_id))
+        # Send by 100 at a time to avoid sending too many requests at once.
+        for communication in self.env["pms.ses.communication"].search(domain, limit=100):
             data = False
             communication.send_attempt_count += 1
             try:

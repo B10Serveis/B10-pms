@@ -35,6 +35,13 @@ La versió `16.0.5.0.0` de `pms` marca l'inici de l'etapa independent de B10 PMS
 posterior a la versió `16.0.4.24.0` de partida. Les versions següents seguiran
 una numeració pròpia dins de la sèrie d'Odoo 16.
 
+La versió `16.0.3.0.0` de `pms_l10n_es` marca l'inici de la seva etapa
+independent, posterior a la versió `16.0.2.4.0` de partida. Inclou els canvis
+locals ja incorporats als formularis de propietats i a la classificació
+turística i les reparacions dels informes SES: enviament manual, filtres de
+dates i habitacions i conservació dels accents als noms. No requereix migració
+de dades.
+
 <!-- prettier-ignore-start -->
 
 [//]: # (addons)
@@ -47,7 +54,7 @@ addon | version | maintainers | summary
 [pms](pms/) | 16.0.5.0.0 |  | A property management system
 [pms_account_move_budget](pms_account_move_budget/) | 16.0.1.0.0 |  | Add Property Field in Account Move Budget
 [pms_hr_property](pms_hr_property/) | 16.0.1.0.0 |  | Adds to the employee the property on which he works.
-[pms_l10n_es](pms_l10n_es/) | 16.0.2.4.0 |  | PMS Spanish Adaptation
+[pms_l10n_es](pms_l10n_es/) | 16.0.3.0.0 |  | PMS Spanish Adaptation
 [pms_l10n_es_sii](pms_l10n_es_sii/) | 16.0.1.2.0 |  | PMS AEAT SII Integration
 [pms_l10n_es_tbai](pms_l10n_es_tbai/) | 16.0.1.1.0 |  | PMS TicketBAI Integration
 [pms_partner_identification](pms_partner_identification/) | 16.0.2.3.0 |  | Add identification models in pms
