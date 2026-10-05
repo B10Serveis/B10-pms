@@ -13,6 +13,10 @@
         <field name="arch" type="xml">
             <form string="Reservation">
                 <header>
+                    <button name="action_regularize_checkin" type="object"
+                        string="Regularize arrival and departure"
+                        groups="pms.group_pms_user"
+                        attrs="{'invisible': [('state', 'not in', ['arrival_delayed', 'onboard', 'departure_delayed'])]}" />
                     <field name="splitted" invisible="True" />
                     <field name="checkin_partner_count" invisible="1" />
                     <field name="to_assign" invisible="1" />

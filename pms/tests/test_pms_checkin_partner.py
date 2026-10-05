@@ -1424,3 +1424,108 @@ class TestPmsCheckinPartner(TestPms):
             lang_es.code,
             "Partner lang should match folio lang",
         )
+
+    def _regularization(self, **values):
+        self.reservation_1.state = "arrival_delayed"
+        vals = {
+            "reservation_id": self.reservation_1.id,
+            "checkin_partner_ids": [(6, 0, self.checkin1.ids)],
+            "arrival": "2012-01-14 15:00:00",
+        }
+        vals.update(values)
+        return self.env["pms.checkin.regularization"].create(vals)
+
+    @freeze_time("2012-01-20 12:00:00")
+    def test_expired_checkin_opens_regularization(self):
+        self.reservation_1.state = "arrival_delayed"
+        action = self.checkin1.action_on_board()
+        self.assertEqual(action["res_model"], "pms.checkin.regularization")
+        self.assertFalse(self.checkin1.arrival)
+
+    @freeze_time("2012-01-20 12:00:00")
+    def test_regularize_still_staying(self):
+        dates = (self.reservation_1.checkin, self.reservation_1.checkout)
+        wizard = self._regularization()
+        wizard.action_apply()
+        self.assertEqual(self.checkin1.arrival, wizard.arrival)
+        self.assertFalse(self.checkin1.departure)
+        self.assertEqual(self.checkin1.state, "onboard")
+        self.assertEqual(self.reservation_1.state, "departure_delayed")
+        self.assertTrue(self.checkin1.identifier)
+        self.assertEqual(dates, (self.reservation_1.checkin, self.reservation_1.checkout))
+
+    @freeze_time("2012-01-20 12:00:00")
+    def test_regularize_departed_with_pending_guests(self):
+        wizard = self._regularization(
+            has_departed=True, departure="2012-01-17 10:00:00",
+        )
+        wizard.action_apply()
+        self.assertEqual(self.checkin1.state, "done")
+        self.assertEqual(self.checkin1.departure, wizard.departure)
+        self.assertEqual(self.reservation_1.state, "arrival_delayed")
+
+    @freeze_time("2012-01-20 12:00:00")
+    def test_regularize_all_departed(self):
+        self.reservation_1.checkin_partner_ids.filtered(
+            lambda guest: guest != self.checkin1
+        ).write({"state": "done"})
+        self._regularization(
+            has_departed=True, departure="2012-01-17 10:00:00",
+        ).action_apply()
+        self.assertEqual(self.reservation_1.state, "done")
+
+    @freeze_time("2012-01-20 12:00:00")
+    def test_regularization_invalid_dates(self):
+        for values in (
+            {"arrival": "2012-01-21 10:00:00"},
+            {"has_departed": True},
+            {"has_departed": True, "departure": "2012-01-13 10:00:00"},
+            {"has_departed": True, "departure": "2012-01-21 10:00:00"},
+        ):
+            with self.subTest(values=values), self.assertRaises(ValidationError):
+                self._regularization(**values).action_apply()
+
+    @freeze_time("2012-01-20 12:00:00")
+    def test_regularization_cannot_repeat(self):
+        wizard = self._regularization()
+        wizard.action_apply()
+        with self.assertRaises(ValidationError):
+            wizard.action_apply()
+
+    @freeze_time("2012-01-20 12:00:00")
+    def test_regularization_outside_reserved_dates_warning(self):
+        wizard = self._regularization(arrival="2012-01-19 10:00:00")
+        self.assertTrue(wizard.outside_reservation)
+
+    @freeze_time("2012-01-20 12:00:00")
+    def test_regularization_preserves_other_guests_onboard(self):
+        other = self.reservation_1.checkin_partner_ids.filtered(
+            lambda guest: guest != self.checkin1
+        )[0]
+        other.write({"state": "onboard", "arrival": "2012-01-14 16:00:00"})
+        self._regularization(
+            has_departed=True, departure="2012-01-17 10:00:00",
+        ).action_apply()
+        self.assertEqual(other.state, "onboard")
+        self.assertFalse(other.departure)
+        self.assertEqual(self.reservation_1.state, "departure_delayed")
+
+    @freeze_time("2012-01-20 12:00:00")
+    def test_regularization_rejects_guest_from_another_reservation(self):
+        other_reservation = self.env["pms.reservation"].create({
+            "partner_id": self.host1.id,
+            "pms_property_id": self.pms_property1.id,
+            "sale_channel_origin_id": self.sale_channel_direct1.id,
+            "room_type_id": self.room_type1.id,
+            "checkin": "2012-01-14",
+            "checkout": "2012-01-17",
+            "adults": 1,
+        })
+        other_guest = other_reservation.checkin_partner_ids[0]
+        other_guest.partner_id = self.host1
+        wizard = self._regularization(
+            checkin_partner_ids=[(6, 0, other_guest.ids)],
+        )
+        with self.assertRaises(ValidationError):
+            wizard.action_apply()
+        self.assertFalse(other_guest.arrival)

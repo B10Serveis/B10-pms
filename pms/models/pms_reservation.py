@@ -2579,6 +2579,24 @@ class PmsReservation(models.Model):
             "target": "new",
         }
 
+    def action_regularize_checkin(self):
+        self.ensure_one()
+        return {
+            "name": _("Regularize arrival and departure"),
+            "type": "ir.actions.act_window",
+            "res_model": "pms.checkin.regularization",
+            "view_mode": "form",
+            "target": "new",
+            "context": {
+                "default_reservation_id": self.id,
+                "default_checkin_partner_ids": [
+                    (6, 0, self.checkin_partner_ids.filtered(
+                        lambda guest: guest.state == "precheckin"
+                    ).ids)
+                ],
+            },
+        }
+
     def action_checkin_partner_onboard_view(self):
         self.ensure_one()
         kanban_id = self.env.ref("pms.pms_checkin_partner_kanban_view").id

@@ -13051,3 +13051,84 @@ msgstr ""
 msgid "{room_name}: No room available in {checkin} <-> {checkout}."
 msgstr ""
 "{room_name}: no hi ha cap habitació disponible entre {checkin} i {checkout}."
+
+#. module: pms
+#: code:addons/pms/wizards/pms_checkin_regularization.py:0
+#: code:addons/pms/models/pms_reservation.py:0
+#: model_terms:ir.ui.view,arch_db:pms.pms_reservation_view_form
+#: model_terms:ir.ui.view,arch_db:pms.pms_checkin_regularization_view_form
+#, python-format
+msgid "Regularize arrival and departure"
+msgstr "Regularitzar entrada i sortida"
+
+#. module: pms
+#: model:ir.model.fields,field_description:pms.field_pms_checkin_regularization__checkin_partner_ids
+msgid "Guests"
+msgstr "Hostes"
+
+#. module: pms
+#: model:ir.model.fields,field_description:pms.field_pms_checkin_regularization__arrival
+msgid "Actual arrival"
+msgstr "Data i hora reals d’entrada"
+
+#. module: pms
+#: model:ir.model.fields,field_description:pms.field_pms_checkin_regularization__has_departed
+msgid "The guests have already left"
+msgstr "Els hostes ja han marxat"
+
+#. module: pms
+#: model:ir.model.fields,field_description:pms.field_pms_checkin_regularization__departure
+msgid "Actual departure"
+msgstr "Data i hora reals de sortida"
+
+#. module: pms
+#: model_terms:ir.ui.view,arch_db:pms.pms_checkin_regularization_view_form
+msgid "Regularize"
+msgstr "Regularitzar"
+
+#. module: pms
+#: model_terms:ir.ui.view,arch_db:pms.pms_checkin_regularization_view_form
+msgid "The actual dates fall outside the reserved stay. Review the reservation dates. Regularization does not change the reserved dates."
+msgstr "Les dates reals queden fora del període reservat. Reviseu les dates de la reserva. La regularització no modifica les dates reservades."
+
+#. module: pms
+#: code:addons/pms/wizards/pms_checkin_regularization.py:0
+#, python-format
+msgid "Only PMS staff can regularize arrivals."
+msgstr "Només el personal del PMS pot regularitzar entrades."
+
+#. module: pms
+#: code:addons/pms/wizards/pms_checkin_regularization.py:0
+#, python-format
+msgid "This reservation cannot be regularized."
+msgstr "Aquesta reserva no es pot regularitzar."
+
+#. module: pms
+#: code:addons/pms/wizards/pms_checkin_regularization.py:0
+#, python-format
+msgid "Select guests pending arrival from this reservation."
+msgstr "Seleccioneu hostes d’aquesta reserva pendents d’entrada."
+
+#. module: pms
+#: code:addons/pms/wizards/pms_checkin_regularization.py:0
+#, python-format
+msgid "Actual arrival must not be in the future."
+msgstr "L’entrada real no pot ser futura."
+
+#. module: pms
+#: code:addons/pms/wizards/pms_checkin_regularization.py:0
+#, python-format
+msgid "Departure must be between arrival and the present."
+msgstr "La sortida ha de ser entre l’entrada i el moment actual."
+
+#. module: pms
+#: code:addons/pms/wizards/pms_checkin_regularization.py:0
+#, python-format
+msgid "Still staying"
+msgstr "Encara allotjats"
+
+#. module: pms
+#: code:addons/pms/wizards/pms_checkin_regularization.py:0
+#, python-format
+msgid "Arrival/departure regularized by %(user)s. Guests: %(guests)s. Actual arrival: %(arrival)s. Actual departure: %(departure)s."
+msgstr "Entrada/sortida regularitzada per %(user)s. Hostes: %(guests)s. Entrada real: %(arrival)s. Sortida real: %(departure)s."

@@ -358,6 +358,14 @@ class PmsCheckinPartner(models.Model):
                     record.lastname, record.firstname
                 )
 
+    def name_get(self):
+        if self.env.context.get("show_guest_name"):
+            return [
+                (record.id, record.name or record.identifier or _("Unknown guest"))
+                for record in self
+            ]
+        return super().name_get()
+
     @api.depends("partner_id")
     def _compute_email(self):
         for record in self:
@@ -702,11 +710,14 @@ class PmsCheckinPartner(models.Model):
             checkin.write(checkin_vals)
 
     def action_on_board(self):
+        if any(record.reservation_id.checkout < fields.Date.today() for record in self):
+            self.ensure_one()
+            action = self.reservation_id.action_regularize_checkin()
+            action["context"]["default_checkin_partner_ids"] = [(6, 0, self.ids)]
+            return action
         for record in self:
             if record.reservation_id.checkin > fields.Date.today():
                 raise ValidationError(_("It is not yet checkin day!"))
-            if record.reservation_id.checkout < fields.Date.today():
-                raise ValidationError(_("Its too late to checkin"))
 
             if any(
                 not getattr(record, field)

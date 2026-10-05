@@ -4,7 +4,7 @@
 {
     "name": "PMS (Property Management System)",
     "summary": "A property management system",
-    "version": "16.0.5.0.0",
+    "version": "16.0.5.0.1",
     "development_status": "Beta",
     "category": "Generic Modules/Property Management System",
     "website": "https://github.com/OCA/pms",
@@ -52,6 +52,7 @@
         "wizards/pms_booking_engine_views.xml",
         "wizards/wizard_folio_changes.xml",
         "wizards/wizard_several_partners.xml",
+        "wizards/pms_checkin_regularization_views.xml",
         "wizards/pms_booking_duplicate_views.xml",
         "views/pms_amenity_views.xml",
         "views/pms_amenity_type_views.xml",
