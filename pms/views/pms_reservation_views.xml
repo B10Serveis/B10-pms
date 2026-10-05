@@ -1195,6 +1195,18 @@
         parent="pms.menu_reservations"
     />
 
+    <record id="action_recalculate_reservation_prices" model="ir.actions.server">
+        <field name="name">Recalculate prices</field>
+        <field name="model_id" ref="pms.model_pms_reservation" />
+        <field name="binding_model_id" ref="pms.model_pms_reservation" />
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+for reservation in records:
+    reservation.update_prices()
+        </field>
+    </record>
+
     <record id="action_view_reservation_operations" model="ir.actions.act_window">
         <field name="name">Reservation operations</field>
         <field name="type">ir.actions.act_window</field>
