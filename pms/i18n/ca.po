@@ -4834,7 +4834,7 @@ msgstr "Canvis de l'expedient"
 #. module: pms
 #: model_terms:ir.ui.view,arch_db:pms.pms_reservation_view_form
 msgid "Folio Form"
-msgstr "Formulari d'expedient"
+msgstr "Formulari d'expedient"e
 
 #. module: pms
 #: model:ir.model.fields,field_description:pms.field_account_move_line__folio_line_ids
@@ -10653,7 +10653,7 @@ msgstr "Data d'inici per aplicar les línies de tarifa diàries"
 #: model_terms:ir.ui.view,arch_db:pms.pms_reservation_view_search
 #: model_terms:ir.ui.view,arch_db:pms.pms_room_view_form
 msgid "State"
-msgstr "Província"
+msgstr "Estat"
 
 #. module: pms
 #. odoo-python
