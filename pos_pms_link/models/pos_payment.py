@@ -17,13 +17,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from odoo import api, models
+from odoo import _, api, models
+from odoo.exceptions import ValidationError
 
 
 class PosPayment(models.Model):
     _inherit = "pos.payment"
 
-    @api.constrains("payment_method_id")
+    @api.constrains("payment_method_id", "pos_order_id")
     def _check_payment_method_id(self):
         for payment in self:
             if (
@@ -31,6 +32,8 @@ class PosPayment(models.Model):
                 and payment.session_id.config_id.pay_on_reservation_method_id
                 == payment.payment_method_id
             ):
+                if not payment.pos_order_id.paid_on_reservation:
+                    raise ValidationError(_("This payment method requires a reservation charge."))
                 continue
             else:
                 super(PosPayment, payment)._check_payment_method_id()

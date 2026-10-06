@@ -3,7 +3,7 @@
 import {debounce} from "@web/core/utils/timing";
 
 import {isConnectionError} from "point_of_sale.utils";
-import {onWillUnmount, useRef} from "@odoo/owl";
+import {onMounted, onWillUnmount, useRef} from "@odoo/owl";
 import PosComponent from "point_of_sale.PosComponent";
 import Registries from "point_of_sale.Registries";
 import {useAsyncLockedMethod} from "point_of_sale.custom_hooks";
@@ -33,9 +33,37 @@ class ReservationListScreen extends PosComponent {
             },
             previousQuery: "",
             currentOffset: 0,
+            isLoading: true,
+            loadError: null,
         };
         this.updateReservationList = debounce(this.updateReservationList, 70);
-        onWillUnmount(this.updateReservationList.cancel);
+        this._isUnmounted = false;
+        onWillUnmount(() => {
+            this._isUnmounted = true;
+            this.updateReservationList.cancel();
+        });
+        // Mount first: a pending RPC or an error must not block the selector.
+        onMounted(() => { this.refreshReservations(); });
+    }
+
+    async refreshReservations() {
+        this.state.isLoading = true;
+        this.state.loadError = null;
+        try {
+            await this.env.pos.refreshReservations();
+        } catch (error) {
+            console.error("Unable to refresh POS reservations", error);
+            this.state.loadError = isConnectionError(error)
+                ? this.env._t("Unable to connect. Showing cached reservations.")
+                : this.env._t("Unable to load reservations: ") + (
+                    (error.data && error.data.message) || error.message || String(error)
+                );
+        } finally {
+            if (!this._isUnmounted) {
+                this.state.isLoading = false;
+                this.render(true);
+            }
+        }
     }
 
     // Lifecycle hooks
@@ -107,7 +135,7 @@ class ReservationListScreen extends PosComponent {
 
     clickReservation(reservation) {
         if (this.state.selectedReservation === reservation) {
-            this.state.selectedCReservation = null;
+            this.state.selectedReservation = null;
         } else {
             this.state.selectedReservation = reservation;
         }

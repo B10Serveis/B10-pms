@@ -35,7 +35,7 @@ const PosPmsGlobalState = (PosGlobalState) =>
         async _processData(loadedData) {
             await super._processData(...arguments);
             if (this.config.pay_on_reservation) {
-                this.reservations = loadedData["pms.reservation"];
+                this.reservations = loadedData["pms.reservation"] || [];
                 this.loadPmsReservation();
                 this.addReservations(this.reservations);
             }
@@ -55,27 +55,64 @@ const PosPmsGlobalState = (PosGlobalState) =>
             }
         }
 
-        async _loadReservations(reservartionIds) {
-            if (reservartionIds.lenght > 0) {
-                var domain = [["id", "in", reservartionIds]];
-                const fetchedReservations = await this.env.services.rpc(
-                    {
+        async refreshReservations(domain = []) {
+            let timeoutId;
+            const timeout = new Promise((resolve, reject) => {
+                timeoutId = setTimeout(() => reject(
+                    new Error(this.env._t("Reservation loading timed out. Please try again."))
+                ), 10000);
+            });
+            let reservations;
+            try {
+                reservations = await Promise.race([
+                    this.env.services.rpc({
                         model: "pos.session",
                         method: "get_pos_ui_pms_reservation_by_params",
-                        args: [[odoo.pos_session_id], {domain}],
-                    },
-                    {
-                        timeout: 3000,
-                        shadow: true,
-                    }
-                );
-                this.addReservations(fetchedReservations);
+                        args: [[this.pos_session.id], {domain}],
+                    }),
+                    timeout,
+                ]);
+            } finally {
+                clearTimeout(timeoutId);
             }
+            if (!Array.isArray(reservations)) {
+                throw new Error(this.env._t("Invalid reservation response from the server."));
+            }
+            this.addReservations(reservations);
+            return reservations;
+        }
+
+        async _loadReservations(reservationIds) {
+            if (reservationIds.length > 0) {
+                return this.refreshReservations([["id", "in", reservationIds]]);
+            }
+            return [];
         }
 
         addReservations(reservations) {
-            return this.db.add_reservations(reservations);
+            // Preserve local quantities while refreshing the server snapshot.
+            for (const reservation of reservations) {
+                const previous = this.db.get_reservation_by_id(reservation.id);
+                const pendingByLine = new Map();
+                for (const service of (previous && previous.services) || []) {
+                    for (const line of service.service_lines) {
+                        pendingByLine.set(line.id, line.pos_order_lines.filter(
+                            (item) => item.client_id && !item.id
+                        ));
+                    }
+                }
+                for (const service of reservation.services || []) {
+                    for (const line of service.service_lines) {
+                        line.pos_order_lines.push(...(pendingByLine.get(line.id) || []));
+                    }
+                }
+            }
+            const count = this.db.add_reservations(reservations);
+            this.reservations = this.db.get_reservations_sorted();
+            this.loadPmsReservation();
+            return count;
         }
+
     };
 
 Registries.Model.extend(PosGlobalState, PosPmsGlobalState);
@@ -165,6 +202,7 @@ const PosPmsOrder = (Order) =>
                     if (qty > 0) {
                         var options = {
                             quantity: qty,
+                            merge: false,
                             pms_service_line_id: service_line_id.id,
                             price: 0.0,
                         };
@@ -181,53 +219,7 @@ const PosPmsOrder = (Order) =>
                                     reservation.rooms
                             );
                         }
-                        var r_service_line_id = reservation.services
-                            .map((x) => x.service_lines)[0]
-                            .find((x) => x.id === service_line_id.id);
-                        if (
-                            r_service_line_id &&
-                            r_service_line_id.pos_order_lines.length === 0
-                        ) {
-                            r_service_line_id.pos_order_lines.push({
-                                id: 0,
-                                qty: parseInt(qty),
-                            });
-                        } else if (
-                            r_service_line_id &&
-                            r_service_line_id.pos_order_lines.length === 1 &&
-                            r_service_line_id.pos_order_lines[0].id === 0
-                        ) {
-                            r_service_line_id.pos_order_lines[0].qty = parseInt(qty);
-                        } else if (
-                            r_service_line_id &&
-                            r_service_line_id.pos_order_lines.length === 1 &&
-                            r_service_line_id.pos_order_lines[0].id != 0
-                        ) {
-                            r_service_line_id.pos_order_lines.push({
-                                id: 0,
-                                qty: parseInt(qty),
-                            });
-                        } else if (
-                            r_service_line_id &&
-                            r_service_line_id.pos_order_lines.length > 1
-                        ) {
-                            var id_in_lines = false;
-                            _.each(
-                                r_service_line_id.pos_order_lines,
-                                function (pos_line_id) {
-                                    if (pos_line_id.id == self.id) {
-                                        pos_line_id.qty = parseInt(qty);
-                                        id_in_lines = true;
-                                    }
-                                }
-                            );
-                            if (id_in_lines == false) {
-                                r_service_line_id.pos_order_lines.push({
-                                    id: self.id,
-                                    qty: parseInt(qty),
-                                });
-                            }
-                        }
+
                     }
                 }
             });
@@ -235,7 +227,7 @@ const PosPmsOrder = (Order) =>
 
         add_product(product, options) {
             super.add_product(...arguments);
-            if (options.pms_service_line_id) {
+            if (options && options.pms_service_line_id) {
                 this.selected_orderline.set_pms_service_line_id(
                     options.pms_service_line_id
                 );
@@ -266,18 +258,45 @@ const PosPmsOrderline = (Orderline) =>
 
         set_pms_service_line_id(value) {
             this.pms_service_line_id = value;
+            this._update_service_quantity(this.get_quantity());
+        }
+
+        _update_service_quantity(quantity) {
+            for (const reservation of this.pos.reservations || []) {
+                for (const service of reservation.services) {
+                    for (const line of service.service_lines) {
+                        if (line.id !== this.pms_service_line_id) continue;
+                        const index = line.pos_order_lines.findIndex(
+                            (item) => item.client_id === this.cid ||
+                                (this.server_id && item.id === this.server_id)
+                        );
+                        if (quantity === "remove" || Number(quantity) === 0) {
+                            if (index !== -1) line.pos_order_lines.splice(index, 1);
+                        } else if (index !== -1) {
+                            line.pos_order_lines[index].qty = Number(quantity);
+                        } else {
+                            line.pos_order_lines.push({
+                                id: this.server_id || 0,
+                                client_id: this.cid,
+                                qty: Number(quantity),
+                            });
+                        }
+                    }
+                }
+            }
         }
 
         export_as_JSON() {
             var json = super.export_as_JSON();
             json.pms_service_line_id = this.pms_service_line_id;
+            json.server_id = this.server_id;
             return json;
         }
 
         init_from_JSON(json) {
             super.init_from_JSON(json);
             this.pms_service_line_id = json.pms_service_line_id;
-            this.server_id = json.server_id;
+            this.server_id = json.server_id || null;
         }
 
         apply_ms_data(data) {
@@ -288,65 +307,15 @@ const PosPmsOrderline = (Orderline) =>
         }
 
         set_quantity(quantity, keep_price) {
-            var res = super.set_quantity(quantity, keep_price);
-            var is_real_qty = true;
-            if (!quantity || quantity == "remove") {
-                is_real_qty = false;
+            const result = super.set_quantity(quantity, keep_price);
+            if (result !== false && this.pms_service_line_id) {
+                this._update_service_quantity(
+                    quantity === "remove" ? "remove" : this.get_quantity()
+                );
             }
-            var self = this;
-            if (self.pms_service_line_id) {
-                this.pos.reservations.map(function (x) {
-                    _.each(x.services, function (service) {
-                        _.each(service.service_lines, function (line) {
-                            if (line.id == self.pms_service_line_id) {
-                                // Si no hay líneas de pedido y la cantidad es real, agregamos una nueva
-                                if (line.pos_order_lines.length == 0 && is_real_qty) {
-                                    line.pos_order_lines.push({
-                                        id: self.server_id || 0,
-                                        qty: parseInt(quantity),
-                                    });
-                                }
-                                // Si ya existe una línea de pedido con el mismo ID
-                                else if (
-                                    line.pos_order_lines.length == 1 &&
-                                    line.pos_order_lines[0].id == self.server_id
-                                ) {
-                                    if (is_real_qty) {
-                                        // Actualizamos la cantidad
-                                        line.pos_order_lines[0].qty =
-                                            parseInt(quantity);
-                                    } else {
-                                        // Eliminamos la línea con splice() en lugar de pop()
-                                        line.pos_order_lines.splice(0, 1);
-                                    }
-                                }
-                                // Si hay varias líneas, buscamos por ID y eliminamos correctamente
-                                else if (line.pos_order_lines.length > 1) {
-                                    var index_to_remove = -1;
-                                    _.each(
-                                        line.pos_order_lines,
-                                        function (pos_line_id, index) {
-                                            if (pos_line_id.id == self.server_id) {
-                                                if (is_real_qty) {
-                                                    pos_line_id.qty =
-                                                        parseInt(quantity);
-                                                } else {
-                                                    index_to_remove = index;
-                                                }
-                                            }
-                                        }
-                                    );
-                                    if (index_to_remove !== -1) {
-                                        line.pos_order_lines.splice(index_to_remove, 1);
-                                    }
-                                }
-                            }
-                        });
-                    });
-                });
-            }
-            return res;
+            return result;
         }
+
     };
 
 Registries.Model.extend(Orderline, PosPmsOrderline);

@@ -24,18 +24,6 @@ class PMSService(models.Model):
     _inherit = "pms.service"
 
     @api.model
-    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
-        if self.env.context.get("pos_user_force", False):
-            return (
-                super()
-                .sudo()
-                .with_context(pos_user_force=False)
-                .search_read(domain, fields, offset, limit, order)
-            )
-        else:
-            return super().search_read(domain, fields, offset, limit, order)
-
-    @api.model
     def create_from_ui(self, reservation):
         """create or modify a reservation from the point of sale ui.
         reservation contains the reservation's fields."""

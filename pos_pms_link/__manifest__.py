@@ -21,9 +21,9 @@
 {
     "name": "POS PMS link",
     "summary": "Allows to use PMS reservations on the POS interface",
-    "version": "16.0.1.1.0",
-    "author": "Comunitea Servicios Tecnológicos S.L., Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/pms",
+    "version": "16.0.2.0.0",
+    "author": "B10 Serveis, Comunitea Servicios Tecnológicos S.L., Odoo Community Association (OCA)",
+    "website": "https://github.com/B10Serveis/B10-pms",
     "license": "AGPL-3",
     "category": "Point of Sale",
     "depends": [

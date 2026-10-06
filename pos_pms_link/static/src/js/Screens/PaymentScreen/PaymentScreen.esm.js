@@ -27,17 +27,16 @@ const PosPMSLinkPaymentScreen = (PaymentScreen) =>
                     ),
                 });
                 if (confirmed) {
-                    var payment_method = {
-                        id: self.env.pos.config.pay_on_reservation_method_id[0],
-                        name: self.env.pos.config.pay_on_reservation_method_id[1],
-                        is_cash_count: false,
-                        pos_mercury_config_id: false,
-                        use_payment_terminal: false,
-                    };
-                    self.trigger("new-payment-line", payment_method);
+                    const methodId = self.env.pos.config.pay_on_reservation_method_id[0];
+                    const payment_method = self.env.pos.payment_methods.find(
+                        (method) => method.id === methodId
+                    );
+                    if (!payment_method || !this.addNewPaymentLine({detail: payment_method})) {
+                        return;
+                    }
                     this.currentOrder.set_paid_on_reservation(true);
                     this.currentOrder.set_pms_reservation_id(newReservation.id);
-                    self.validateOrder(false);
+                    await self.validateOrder(false);
                 }
             }
         }

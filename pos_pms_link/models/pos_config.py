@@ -20,7 +20,8 @@
 
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -41,14 +42,24 @@ class PosConfig(models.Model):
 
     cash_move_partner = fields.Boolean("Use partner in cash moves", default=False)
 
-    @api.model
-    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
-        if self.env.context.get("pos_user_force", False):
-            return (
-                super()
-                .sudo()
-                .with_context(pos_user_force=False)
-                .search_read(domain, fields, offset, limit, order)
-            )
-        else:
-            return super().search_read(domain, fields, offset, limit, order)
+    @api.constrains(
+        "pay_on_reservation", "pay_on_reservation_method_id", "company_id",
+        "reservation_allowed_propertie_ids",
+    )
+    def _check_reservation_configuration(self):
+        for config in self:
+            method = config.pay_on_reservation_method_id
+            # Odoo validates every constraint when opening the POS. A legacy
+            # or incomplete reservation payment setup must not block cash sales.
+            # The deferred method requirement is checked when charging a stay.
+            if method and method.company_id != config.company_id:
+                raise ValidationError(_(
+                    "The reservation payment method must belong to the POS company."
+                ))
+            if any(
+                prop.company_id != config.company_id
+                for prop in config.reservation_allowed_propertie_ids
+            ):
+                raise ValidationError(_(
+                    "Allowed properties must belong to the POS company."
+                ))

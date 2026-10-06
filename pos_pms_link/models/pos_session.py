@@ -23,17 +23,13 @@ from collections import defaultdict
 
 from odoo import _, fields, models
 from odoo.exceptions import UserError
+from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
 
 
 class PosSession(models.Model):
     _inherit = "pos.session"
-
-    def _load_model(self, model):
-        return super(PosSession, self.with_context(pos_user_force=True))._load_model(
-            model
-        )
 
     def _accumulate_amounts(self, data):  # noqa: C901  # too-complex
         res = super()._accumulate_amounts(data)
@@ -54,46 +50,51 @@ class PosSession(models.Model):
                 self.company_id.tax_calculation_rounding_method == "round_globally"
             )
 
-            reservation_orders = self.order_ids.filtered(lambda x: x.pms_reservation_id)
+            reservation_orders = self.order_ids.filtered(
+                lambda order: order.paid_on_reservation
+                and order.pms_reservation_id
+                and not order.is_invoiced
+            )
 
-            order_taxes = defaultdict(tax_amounts)
-            for order_line in reservation_orders.lines:
-                line = self._prepare_line(order_line)
-                # Combine sales/refund lines
-                sale_key = (
-                    # account
-                    line["income_account_id"],
-                    # sign
-                    -1 if line["amount"] < 0 else 1,
-                    # for taxes
-                    tuple(
-                        (tax["id"], tax["account_id"], tax["tax_repartition_line_id"])
-                        for tax in line["taxes"]
-                    ),
-                    line["base_tags"],
-                )
-                sales[sale_key] = self._update_amounts(
-                    sales[sale_key], {"amount": line["amount"]}, line["date_order"]
-                )
-                # Combine tax lines
-                for tax in line["taxes"]:
-                    tax_key = (
-                        tax["account_id"] or line["income_account_id"],
-                        tax["tax_repartition_line_id"],
-                        tax["id"],
-                        tuple(tax["tag_ids"]),
+            for order in reservation_orders:
+                order_taxes = defaultdict(tax_amounts)
+                for order_line in order.lines:
+                    line = self._prepare_line(order_line)
+                    # Combine sales/refund lines
+                    sale_key = (
+                        # account
+                        line["income_account_id"],
+                        # sign
+                        -1 if line["amount"] < 0 else 1,
+                        # for taxes
+                        tuple(
+                            (tax["id"], tax["account_id"], tax["tax_repartition_line_id"])
+                            for tax in line["taxes"]
+                        ),
+                        line["base_tags"],
                     )
-                    order_taxes[tax_key] = self._update_amounts(
-                        order_taxes[tax_key],
-                        {"amount": tax["amount"], "base_amount": tax["base"]},
-                        tax["date_order"],
-                        round=not rounded_globally,
+                    sales[sale_key] = self._update_amounts(
+                        sales[sale_key], {"amount": line["amount"]}, line["date_order"]
                     )
-            for tax_key, amounts in order_taxes.items():
-                if rounded_globally:
-                    amounts = self._round_amounts(amounts)
-                for amount_key, amount in amounts.items():
-                    taxes[tax_key][amount_key] += amount
+                    # Combine tax lines
+                    for tax in line["taxes"]:
+                        tax_key = (
+                            tax["account_id"] or line["income_account_id"],
+                            tax["tax_repartition_line_id"],
+                            tax["id"],
+                            tuple(tax["tag_ids"]),
+                        )
+                        order_taxes[tax_key] = self._update_amounts(
+                            order_taxes[tax_key],
+                            {"amount": tax["amount"], "base_amount": tax["base"]},
+                            tax["date_order"],
+                            round=not rounded_globally,
+                        )
+                for tax_key, amounts in order_taxes.items():
+                    if rounded_globally:
+                        amounts = self._round_amounts(amounts)
+                    for amount_key, amount in amounts.items():
+                        taxes[tax_key][amount_key] += amount
 
             for element, value in dict(res["taxes"]).items():
                 if element in taxes:
@@ -115,22 +116,21 @@ class PosSession(models.Model):
                     value["amount_converted"] = (
                         value["amount_converted"] - sales[element]["amount_converted"]
                     )
-            if self.config_id.pay_on_reservation_method_id.split_transactions:
-                for element, value in dict(res["split_receivables_pay_later"]).items():
-                    if (
-                        element.payment_method_id
-                        == self.config_id.pay_on_reservation_method_id
-                    ):
-                        value["amount"] = 0.0
-                        value["amount_converted"] = 0.0
-
-            else:
-                for element, value in dict(
-                    res["combine_receivables_pay_later"]
-                ).items():
-                    if element == self.config_id.pay_on_reservation_method_id:
-                        value["amount"] = 0.0
-                        value["amount_converted"] = 0.0
+            method = self.config_id.pay_on_reservation_method_id
+            for order in reservation_orders:
+                for payment in order.payment_ids.filtered(
+                    lambda payment: payment.payment_method_id == method
+                ):
+                    bucket = (
+                        res["split_receivables_pay_later"]
+                        if method.split_transactions
+                        else res["combine_receivables_pay_later"]
+                    )
+                    key = payment if method.split_transactions else method
+                    if key in bucket:
+                        bucket[key] = self._update_amounts(
+                            bucket[key], {"amount": -payment.amount}, payment.payment_date
+                        )
         return res
 
     def _pos_ui_models_to_load(self):
@@ -142,6 +142,7 @@ class PosSession(models.Model):
     def _loader_params_pms_reservation(self):
         today = fields.Date.context_today(self)
         domain = [
+            ("company_id", "=", self.company_id.id),
             ("state", "!=", "cancel"),
             ("checkin", "<=", today),
             ("checkout", ">=", today),
@@ -212,12 +213,27 @@ class PosSession(models.Model):
         }
 
     def _get_pos_ui_pms_reservation(self, params):
-        ctx = {"pos_user_force": True}
+        self.ensure_one()
+        self.check_access_rights("read")
+        self.check_access_rule("read")
+        if not self.env.user.has_group("point_of_sale.group_pos_user"):
+            raise UserError(_("Only POS users may load reservations."))
+        if not self.config_id.pay_on_reservation:
+            return []
+        # Always intersect caller parameters with the server's allowed scope.
+        params = {"search_params": dict(params["search_params"])}
+        params["search_params"]["domain"] = expression.AND([
+            self._loader_params_pms_reservation()["search_params"]["domain"],
+            params["search_params"].get("domain", []),
+        ])
+        params["search_params"]["fields"] = (
+            self._loader_params_pms_reservation()["search_params"]["fields"]
+        )
 
         # 1. Obtener las reservas con `search_read` para todos los campos que necesitas
         reservations = (
             self.env["pms.reservation"]
-            .with_context(**ctx)
+            .sudo()
             .search_read(**params["search_params"])
         )
         reservation_ids = [r["id"] for r in reservations]
@@ -232,7 +248,7 @@ class PosSession(models.Model):
         ]
         services = (
             self.env["pms.service"]
-            .with_context(**ctx)
+            .sudo()
             .search_read(
                 service_params["search_params"]["domain"],
                 fields=service_params["search_params"]["fields"],
@@ -247,7 +263,7 @@ class PosSession(models.Model):
         ]
         service_lines = (
             self.env["pms.service.line"]
-            .with_context(**ctx)
+            .sudo()
             .search_read(
                 service_line_params["search_params"]["domain"],
                 fields=service_line_params["search_params"]["fields"],
@@ -262,7 +278,7 @@ class PosSession(models.Model):
         ]
         pos_order_lines = (
             self.env["pos.order.line"]
-            .with_context(**ctx)
+            .sudo()
             .search_read(
                 pos_order_line_params["search_params"]["domain"],
                 fields=pos_order_line_params["search_params"]["fields"],
@@ -302,6 +318,9 @@ class PosSession(models.Model):
             reservation["services"] = services_by_reservation.get(reservation["id"], [])
 
         return reservations
+
+    def get_pos_ui_pms_reservation_by_params(self, search_params):
+        return self._get_pos_ui_pms_reservation({"search_params": search_params})
 
     def try_cash_in_out(self, _type, amount, reason, extras):
         sign = 1 if _type == "in" else -1

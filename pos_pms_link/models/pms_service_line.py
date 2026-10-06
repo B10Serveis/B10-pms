@@ -17,7 +17,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class PMSServiceLine(models.Model):
@@ -28,15 +28,3 @@ class PMSServiceLine(models.Model):
         comodel_name="pos.order.line",
         inverse_name="pms_service_line_id",
     )
-
-    @api.model
-    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
-        if self.env.context.get("pos_user_force", False):
-            return (
-                super()
-                .sudo()
-                .with_context(pos_user_force=False)
-                .search_read(domain, fields, offset, limit, order)
-            )
-        else:
-            return super().search_read(domain, fields, offset, limit, order)

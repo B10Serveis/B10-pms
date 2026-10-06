@@ -78,6 +78,20 @@
                                             </tr>
                                         </thead>
                                         <tbody class="partner-list-contents">
+                                            <tr t-if="state.isLoading">
+                                                <td colspan="7">Loading reservations…</td>
+                                            </tr>
+                                            <tr t-if="state.loadError">
+                                                <td colspan="7">
+                                                    <span t-esc="state.loadError" />
+                                                    <button t-on-click="refreshReservations">Retry</button>
+                                                </td>
+                                            </tr>
+                                            <tr t-if="!state.isLoading and !state.loadError and !reservations.length">
+                                                <td colspan="7">
+                                                    No current reservations found for this POS company and allowed properties.
+                                                </td>
+                                            </tr>
                                             <t
                                                 t-foreach="reservations"
                                                 t-as="reservation"

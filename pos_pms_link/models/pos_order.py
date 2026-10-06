@@ -29,11 +29,13 @@ class PosOrder(models.Model):
     paid_on_reservation = fields.Boolean("Paid on reservation", default=False)
     pms_reservation_id = fields.Many2one("pms.reservation", string="PMS reservation")
 
-    def _get_fields_for_draft_order(self):
-        res = super()._get_fields_for_draft_order()
-        res.append("paid_on_reservation")
-        res.append("pms_reservation_id")
-        return res
+    def _export_for_ui(self, order):
+        result = super()._export_for_ui(order)
+        result.update(
+            paid_on_reservation=order.paid_on_reservation,
+            pms_reservation_id=order.pms_reservation_id.id,
+        )
+        return result
 
     @api.model
     def _order_fields(self, ui_order):
@@ -47,39 +49,60 @@ class PosOrder(models.Model):
         res.append("pms_service_line_id")
         return res
 
-    def _get_order_lines(self, orders):
-        res = super()._get_order_lines(orders)
-        for order in orders:
-            if "lines" in order:
-                for line in order["lines"]:
-                    line[2]["pms_service_line_id"] = (
-                        line[2]["pms_service_line_id"][0]
-                        if line[2]["pms_service_line_id"]
-                        else False
-                    )
-        return res
-
     @api.model
     def _process_order(self, pos_order, draft, existing_order):
-        data = pos_order.get("data", False)
-        if (
-            data
-            and data.get("paid_on_reservation", False)
-            and data.get("pms_reservation_id", False)
-        ):
-            pms_reservation_id = data.pop("pms_reservation_id")
-            res = super()._process_order(pos_order, draft, existing_order)
-            order_id = self.env["pos.order"].browse(res)
-            pms_reservation_id = (
-                self.sudo().env["pms.reservation"].browse(pms_reservation_id)
-            )
-            if not pms_reservation_id:
-                raise UserError(_("Reservation does not exists."))
-            order_id.pms_reservation_id = pms_reservation_id.id
-            order_id.add_order_lines_to_reservation(pms_reservation_id)
-            return res
-        else:
-            return super()._process_order(pos_order, draft, existing_order)
+        data = pos_order["data"]
+        reservation_id = data.get("pms_reservation_id")
+        if data.get("paid_on_reservation"):
+            session = self.env["pos.session"].browse(data["pos_session_id"]).exists()
+            session.check_access_rights("read")
+            session.check_access_rule("read")
+            config = session.config_id
+            if not config.pay_on_reservation or not reservation_id:
+                raise UserError(_("Reservation payment is not configured."))
+            reservation = self.env["pms.reservation"].sudo().browse(reservation_id).exists()
+            if (
+                not reservation
+                or reservation.company_id != session.company_id
+                or reservation.currency_id != session.currency_id
+                or reservation.state == "cancel"
+                or (
+                    config.reservation_allowed_propertie_ids
+                    and reservation.pms_property_id
+                    not in config.reservation_allowed_propertie_ids
+                )
+            ):
+                raise UserError(_("This reservation is not allowed for this POS."))
+            method = config.pay_on_reservation_method_id
+            if (
+                not method
+                or method.type != "pay_later"
+                or method.company_id != session.company_id
+                or data.get("to_invoice")
+            ):
+                raise UserError(_(
+                    "Reservation payments require a deferred payment method "
+                    "and cannot be invoiced in POS."
+                ))
+            payments = data.get("statement_ids", [])
+            if not draft and (
+                not payments
+                or any(
+                    payment[2].get("payment_method_id") != method.id
+                    for payment in payments
+                )
+                or not session.currency_id.is_zero(
+                    sum(payment[2]["amount"] for payment in payments)
+                    - data["amount_total"]
+                )
+            ):
+                raise UserError(_("The entire order must be paid on the reservation."))
+        elif reservation_id:
+            raise UserError(_("A reservation requires reservation payment."))
+        result = super()._process_order(pos_order, draft, existing_order)
+        if data.get("paid_on_reservation") and not draft:
+            self.browse(result).add_order_lines_to_reservation(reservation)
+        return result
 
     def add_order_lines_to_reservation(self, pms_reservation_id):
         self.lines.filtered(lambda x: not x.pms_service_line_id)._generate_pms_service(
@@ -92,12 +115,19 @@ class PosOrderLine(models.Model):
 
     pms_service_line_id = fields.Many2one("pms.service.line", string="PMS Service line")
 
+    def _export_for_ui(self, orderline):
+        result = super()._export_for_ui(orderline)
+        result["pms_service_line_id"] = orderline.pms_service_line_id.id
+        result["server_id"] = orderline.id
+        return result
+
     def _generate_pms_service(self, pms_reservation_id):
         for line in self:
             vals = {
                 "product_id": line.product_id.id,
                 "reservation_id": pms_reservation_id.id,
                 "is_board_service": False,
+                "tax_ids": [(6, 0, line.tax_ids_after_fiscal_position.ids)],
                 "service_line_ids": [
                     (
                         0,

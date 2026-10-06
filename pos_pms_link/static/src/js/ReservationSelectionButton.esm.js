@@ -16,7 +16,6 @@ class ReservationSelectionButton extends PosComponent {
         );
         if (confirmed) {
             this.currentOrder.add_reservation_services(newReservation);
-            console.log(newReservation);
         }
     }
 }
@@ -26,7 +25,7 @@ ReservationSelectionButton.template = "ReservationSelectionButton";
 ProductScreen.addControlButton({
     component: ReservationSelectionButton,
     condition: function () {
-        return true;
+        return this.env.pos.config.pay_on_reservation;
     },
 });
 
