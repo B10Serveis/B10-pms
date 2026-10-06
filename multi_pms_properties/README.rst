@@ -48,7 +48,7 @@ a server-wide module.
 This can be done with the ``server_wide_modules`` parameter in ``/etc/odoo.conf``
 or with the ``--load`` command-line parameter
 
-``server_wide_modules = "multi_pms_properties"``
+``server_wide_modules = base,web,multi_pms_properties``
 
 Usage
 =====
@@ -111,3 +111,11 @@ promote its widespread use.
 This module is part of the `OCA/pms <https://github.com/OCA/pms/tree/16.0/multi_pms_properties>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
+
+B10 PMS fork
+============
+
+La versió ``16.0.2.0.0`` inicia el desenvolupament independent de B10 PMS.
+Consulteu el `registre de canvis <CHANGELOG.md>`_ per veure les correccions
+i les condicions d'actualització. Les atribucions anteriors es conserven
+com a reconeixement de l'origen del codi.

@@ -4,4 +4,4 @@ a server-wide module.
 This can be done with the ``server_wide_modules`` parameter in ``/etc/odoo.conf``
 or with the ``--load`` command-line parameter
 
-``server_wide_modules = "multi_pms_properties"``
+``server_wide_modules = base,web,multi_pms_properties``

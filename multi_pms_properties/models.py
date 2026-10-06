@@ -28,6 +28,8 @@ class BaseModel(models.AbstractModel):
 
     def write(self, vals):
         res = super().write(vals)
+        if not res or not self._check_pms_properties_auto:
+            return res
         check_pms_properties = False
         for fname in vals:
             field = self._fields.get(fname)
@@ -35,10 +37,14 @@ class BaseModel(models.AbstractModel):
                 fname == "pms_property_id"
                 or fname == "pms_property_ids"
                 or fname == "company_id"
-                or (field.relational and getattr(field, "check_pms_properties", False))
+                or (
+                    field
+                    and field.relational
+                    and getattr(field, "check_pms_properties", False)
+                )
             ):
                 check_pms_properties = True
-        if res and check_pms_properties and self._check_pms_properties_auto:
+        if check_pms_properties:
             self._check_pms_properties()
         return res
 
@@ -46,23 +52,17 @@ class BaseModel(models.AbstractModel):
         """Check the properties of the values of the given field names.
 
         :param list fnames: names of relational fields to check
-        :raises UserError: if the `pms_properties` of the value of any field is not
-            in `[False, self.pms_property_id]` (or `self` if
-            :class:`~odoo.addons.base.models.pms_property`).
+        :raises UserError: if properties or their companies are incompatible.
 
-        For :class:`~odoo.addons.base.models.res_users` relational fields,
-        verifies record company is in `company_ids` fields.
-
-        User with main pms property A, having access to pms property A and B, could be
-        assigned or linked to records in property B.
+        A many2one target must cover all properties of its source. One2many
+        children must be contained in their parent's properties. Many2many
+        links require overlapping properties. Unrestricted targets are shared.
+        Company consistency is checked even when there are no marked relations.
         """
         if fnames is None:
             fnames = self._fields
 
         regular_fields = self._get_regular_fields(fnames)
-
-        if not regular_fields:
-            return
 
         inconsistencies = self._check_inconsistencies(regular_fields)
 
@@ -129,10 +129,10 @@ class BaseModel(models.AbstractModel):
             # Check the property & company consistence
             if "company_id" in self._fields:
                 if record.company_id and pms_properties:
-                    property_companies = pms_properties.mapped("company_id.id")
+                    property_companies = pms_properties.mapped("company_id")
                     if (
                         len(property_companies) > 1
-                        or record.company_id.id != property_companies[0]
+                        or property_companies != record.company_id
                     ):
                         raise UserError(
                             _(
@@ -145,48 +145,35 @@ class BaseModel(models.AbstractModel):
             # with the properties of the origin document,
             for name in regular_fields:
                 field = self._fields[name]
-                co_pms_properties = False
-
-                corecord = record.sudo()[name]
-                # TODO:res.users management properties
-                if "pms_property_id" in corecord:
-                    co_pms_properties = corecord.pms_property_id
-                if "pms_property_ids" in corecord:
-                    co_pms_properties = corecord.pms_property_ids
-                if (
-                    # There is an inconsistency if:
-                    #
-                    # - Record has properties and corecord too and
-                    # there's no match between them:
-                    # X  Pms_room_class with Property1 cannot contain
-                    #                       Pms_room with property2   X
-                    #
-                    # - Record has a relation one2many with corecord and
-                    # corecord properties aren't included in record properties
-                    # or what is the same, subtraction between corecord properties
-                    # and record properties must be False:
-                    #  X  Pricelist with Prop1 and Prop2 cannot contain
-                    #                   Pricelist_item with Prop1 and Prop3  X
-                    #  X  Pricelist with Prop1 and Prop2 cannot contain
-                    #                   Pricelist_item with Prop1, Prop2 and Prop3  X
-                    # -In case that record has a relation many2one
-                    #                   with corecord the condition is the same as avobe
-                    (
-                        pms_properties
-                        and co_pms_properties
-                        and (not pms_properties & co_pms_properties)
-                    )
-                    or (
-                        corecord
-                        and field.type == "one2many"
-                        and pms_properties
-                        and (co_pms_properties - pms_properties)
-                    )
-                    or (
-                        field.type == "many2one"
-                        and co_pms_properties
-                        and ((pms_properties - co_pms_properties) or not pms_properties)
-                    )
-                ):
-                    inconsistencies.append((record, name, corecord))
+                # Check each linked record separately. Unioning their properties
+                # can hide an incompatible record behind a compatible one.
+                corecords = record.sudo()[name]
+                for corecord in corecords:
+                    co_pms_properties = False
+                    if "pms_property_id" in corecord:
+                        co_pms_properties = corecord.pms_property_id
+                    if "pms_property_ids" in corecord:
+                        co_pms_properties = corecord.pms_property_ids
+                    if (
+                        # Many2many requires overlap; one2many requires the
+                        # child's properties to be a subset of the parent's.
+                        # Many2one requires the inverse subset relationship.
+                        (
+                            pms_properties
+                            and co_pms_properties
+                            and (not pms_properties & co_pms_properties)
+                        )
+                        or (
+                            corecord
+                            and field.type == "one2many"
+                            and pms_properties
+                            and (co_pms_properties - pms_properties)
+                        )
+                        or (
+                            field.type == "many2one"
+                            and co_pms_properties
+                            and ((pms_properties - co_pms_properties) or not pms_properties)
+                        )
+                    ):
+                        inconsistencies.append((record, name, corecord))
         return inconsistencies
