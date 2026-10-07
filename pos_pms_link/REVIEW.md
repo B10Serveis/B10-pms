@@ -105,3 +105,59 @@ El log HTTP 200 facilitat no confirma per si sol si hi havia un error RPC o
 JavaScript; aquesta causa concreta requereix la resposta o la consola del
 navegador. La sortida del worker amb `request_count` no prova que la consulta
 hagi fallat.
+
+## Productes de serveis no carregats al TPV
+
+La selecció de serveis passava `undefined` a `add_product` quan un producte
+PMS no existia a la memòria local del TPV. Ara es carreguen els productes
+absents amb `_addProducts(ids, false)`, sense modificar `available_in_pos`.
+Es comprova que tots els productes necessaris estiguin disponibles abans
+d'afegir cap línia. Si no es poden obtenir, es mostra el nom dels productes
+afectats en un popup. Les regressions cobreixen càrrega correcta, producte
+encara absent i absència d'addicions parcials en aquest cas.
+El filtre de reserves per data, estat, empresa i propietat es conserva.
+
+## Configuració del cobrament a reserva i canvi de pagament
+
+El missatge genèric de cobrament diferit es divideix en tres errors amb
+instruccions: mètode sense diari bancari/efectiu, empresa incorrecta i
+facturació directa al TPV activada. El botó de cobrament a reserva comprova
+el tipus del mètode i la facturació abans d'afegir un pagament o validar.
+En eliminar l'últim pagament a reserva es netegen les marques de cobrament
+i la reserva de la comanda. Això evita enviar-les en passar a targeta o
+metàl·lic. La regressió Node comprova que eliminar un pagament ordinari
+conserva el càrrec, però eliminar el pagament a reserva el neteja.
+
+## Traducció al català — 2026-10-07
+
+Catàleg `i18n/ca.po` amb 106 termes traduïts: configuració, camps, selector,
+rebuts, moviments d'efectiu i missatges d'error. S'actualitza la plantilla POT.
+Els textos dinàmics de confirmació i de notes, i les etiquetes de moviments
+d'efectiu, es preparen per a la traducció conservant les dades variables.
+Validats els marcadors de format i la lectura amb l'importador real d'Odoo 16
+(114 referències de traducció). Les proves Python i Node continuen passant.
+La traducció encara no s'ha carregat en cap base de dades.
+
+## Client automàtic del càrrec a reserva — 2026-10-07
+
+El loader inclou ara `partner_id`. Si el tiquet no té client, el circuit de
+càrrec assigna el contacte associat a la reserva abans d'afegir el pagament
+i validar. Els contactes absents de la memòria local es carreguen pel loader
+estàndard del TPV, sense elevació global de permisos. Un client ja escollit
+al tiquet es conserva. Si la reserva només té un nom i no un contacte, s'obre
+la selecció manual; cancel·lar-la interromp el càrrec. Un error de càrrega
+també l'interromp amb un missatge. README i configuració actualitzats.
+Regressions: `node pos_pms_link/tests/test_reservation_partner.cjs`.
+
+## Mètode de pagament per defecte — 2026-10-07
+
+Les dades del mòdul executen `_create_default_hotel_payment_methods` en
+instal·lar i actualitzar. Es crea «Càrrec Hotel» per a cada empresa existent,
+amb fraccionament activat i sense diari. Es reutilitza un mètode actiu del
+mateix nom que ja compleixi aquesta configuració. Els mètodes arxivats o
+incompatibles es conserven sense modificar; en aquests casos es crea un
+mètode vàlid addicional. No s'assigna automàticament als TPV.
+Versió `16.0.2.0.2`. Quatre regressions aïllades cobreixen creació per
+empresa, reexecució sense duplicats, reutilització i conservació de mètodes
+existents. Total: 23 proves Python correctes. No s'ha executat una instal·lació
+integral amb registre i base de dades ni s'ha actualitzat producció.

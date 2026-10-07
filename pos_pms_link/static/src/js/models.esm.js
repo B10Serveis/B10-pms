@@ -164,65 +164,54 @@ const PosPmsOrder = (Order) =>
             this.trigger("change", this);
         }
 
-        add_reservation_services(reservation) {
-            var self = this;
-            var d = new Date();
-            var month = d.getMonth() + 1;
-            var day = d.getDate();
-
-            var current_date =
-                d.getFullYear() +
-                "-" +
-                (month < 10 ? "0" : "") +
-                month +
-                "-" +
-                (day < 10 ? "0" : "") +
-                day;
-
-            var service_lines =
-                reservation.services.map((x) => x.service_lines) || false;
-            var today_service_lines = [];
-            _.each(service_lines, function (service_array) {
-                today_service_lines.push(
-                    service_array.find((x) => x.date === current_date)
-                );
-            });
-
-            _.each(today_service_lines, function (service_line_id) {
-                if (service_line_id) {
-                    var qty = service_line_id.day_qty;
-                    if (service_line_id.pos_order_lines.length > 0) {
-                        _.each(
-                            service_line_id.pos_order_lines,
-                            function (order_line_id) {
-                                qty -= order_line_id.qty;
-                            }
-                        );
-                    }
-                    if (qty > 0) {
-                        var options = {
-                            quantity: qty,
-                            merge: false,
-                            pms_service_line_id: service_line_id.id,
-                            price: 0.0,
-                        };
-                        var service_product = self.pos.db.get_product_by_id(
-                            service_line_id.product_id[0]
-                        );
-                        self.pos.get_order().add_product(service_product, options);
-                        var last_line = self.pos.get_order().get_last_orderline();
-                        if (last_line) {
-                            last_line.set_note(
-                                "RESERVATION: " +
-                                    reservation.name +
-                                    " ROOMS: " +
-                                    reservation.rooms
-                            );
-                        }
-
-                    }
+        async add_reservation_services(reservation) {
+            const date = new Date();
+            const today = [date.getFullYear(),
+                String(date.getMonth() + 1).padStart(2, "0"),
+                String(date.getDate()).padStart(2, "0")].join("-");
+            const pending = [];
+            for (const service of reservation.services || []) {
+                for (const line of service.service_lines) {
+                    if (line.date !== today) continue;
+                    const quantity = line.day_qty - line.pos_order_lines.reduce(
+                        (total, item) => total + item.qty, 0
+                    );
+                    if (quantity > 0) pending.push({line, quantity});
                 }
-            });
+            }
+            const missingIds = [...new Set(pending
+                .map(({line}) => line.product_id && line.product_id[0])
+                .filter((id) => id && !this.pos.db.get_product_by_id(id)))];
+            if (missingIds.length) {
+                // Fetch through Odoo's product loader without changing availability.
+                await this.pos._addProducts(missingIds, false);
+            }
+            // Validate everything before adding any line to the order.
+            const unavailable = pending.filter(({line}) =>
+                !line.product_id || !this.pos.db.get_product_by_id(line.product_id[0])
+            );
+            if (unavailable.length) {
+                throw new Error(this.pos.env._t(
+                    "These reservation products could not be loaded in POS: "
+                ) + unavailable.map(({line}) =>
+                    line.product_id ? line.product_id[1] : String(line.id)
+                ).join(", "));
+            }
+            for (const {line, quantity} of pending) {
+                this.add_product(this.pos.db.get_product_by_id(line.product_id[0]), {
+                    quantity,
+                    merge: false,
+                    pms_service_line_id: line.id,
+                    price: 0.0,
+                });
+                const lastLine = this.get_last_orderline();
+                if (lastLine) {
+                    lastLine.set_note(
+                        this.pos.env._t("RESERVATION:") + " " + reservation.name + " " +
+                        this.pos.env._t("ROOMS:") + " " + reservation.rooms
+                    );
+                }
+            }
         }
 
         add_product(product, options) {
@@ -232,6 +221,19 @@ const PosPmsOrder = (Order) =>
                     options.pms_service_line_id
                 );
             }
+        }
+
+        remove_paymentline(line) {
+            const result = super.remove_paymentline(...arguments);
+            const configured = this.pos.config.pay_on_reservation_method_id;
+            const hasReservationPayment = configured && this.get_paymentlines().some(
+                (payment) => payment.payment_method.id === configured[0]
+            );
+            if (this.paid_on_reservation && !hasReservationPayment) {
+                this.set_paid_on_reservation(false);
+                this.set_pms_reservation_id(false);
+            }
+            return result;
         }
 
         export_for_printing() {

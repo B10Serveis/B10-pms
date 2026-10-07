@@ -7,12 +7,14 @@ msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-07 09:04+0200\n"
-"PO-Revision-Date: \n"
+"PO-Revision-Date: 2026-10-07 00:00+0200\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: Catalan\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.9.1\n"
 
 #. module: pos_pms_link
@@ -20,177 +22,177 @@ msgstr ""
 #: code:addons/pos_pms_link/static/src/js/Popups/PartnerListPopup.esm.js:0
 #, python-format
 msgid "%s customer(s) found for \"%s\"."
-msgstr ""
+msgstr "S’han trobat %s clients per a «%s»."
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_session.py:0
 #, python-format
 msgid "-Amount: %s"
-msgstr ""
+msgstr "-Import: %s"
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_session.py:0
 #, python-format
 msgid "-Cash %s"
-msgstr ""
+msgstr "-Efectiu: %s"
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_session.py:0
 #, python-format
 msgid "-Cashier: %s"
-msgstr ""
+msgstr "-Caixer: %s"
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_session.py:0
 #, python-format
 msgid "-Reason: %s"
-msgstr ""
+msgstr "-Motiu: %s"
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_order.py:0
 msgid "A reservation requires reservation payment."
-msgstr ""
+msgstr "Per vincular una reserva, cal carregar-hi el tiquet."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 msgid "Add a customer"
-msgstr ""
+msgstr "Afegeix un client"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 msgid "Address"
-msgstr ""
+msgstr "Adreça"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Adults"
-msgstr ""
+msgstr "Adults"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationDetailsEdit.xml:0
 msgid "Adults:"
-msgstr ""
+msgstr "Adults:"
 
 #. module: pos_pms_link
 #: model_terms:ir.ui.view,arch_db:pos_pms_link.res_config_settings_view_form_pos_pms
 msgid "Allow cash in/out operations for all employees"
-msgstr ""
+msgstr "Permet entrades i sortides d’efectiu a tots els empleats"
 
 #. module: pos_pms_link
 #: model_terms:ir.ui.view,arch_db:pos_pms_link.res_config_settings_view_form_pos_pms
 msgid "Allow pay on reservations"
-msgstr ""
+msgstr "Permet carregar els tiquets a les reserves"
 
 #. module: pos_pms_link
 #: model_terms:ir.ui.view,arch_db:pos_pms_link.res_config_settings_view_form_pos_pms
 msgid "Allowed properties"
-msgstr ""
+msgstr "Establiments permesos"
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_config.py:0
 msgid "Allowed properties must belong to the POS company."
-msgstr ""
+msgstr "Els establiments permesos han de pertànyer a l’empresa del TPV."
 
 #. module: pos_pms_link
 #: model_terms:ir.ui.view,arch_db:pos_pms_link.res_config_settings_view_form_pos_pms
 msgid "Always allow to close session"
-msgstr ""
+msgstr "Permet sempre tancar la sessió"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 msgid "Balance"
-msgstr ""
+msgstr "Saldo"
 
 #. module: pos_pms_link
 #: model:ir.model.fields,field_description:pos_pms_link.field_pos_config__cash_in_out_allowed
 #: model:ir.model.fields,field_description:pos_pms_link.field_res_config_settings__pos_cash_in_out_allowed
 msgid "Cash in/out allowed"
-msgstr ""
+msgstr "Permet entrades i sortides d’efectiu"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/ChromeWidgets/CashMoveButton.esm.js:0
 #, python-format
 msgid "Cash in/out of %s is ignored."
-msgstr ""
+msgstr "S’ignora el moviment d’efectiu de %s."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/ReservationListScreen/ReservationListScreen.esm.js:0
 msgid "Change Reservation"
-msgstr ""
+msgstr "Canvia la reserva"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Checkin"
-msgstr ""
+msgstr "Entrada"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationDetailsEdit.xml:0
 msgid "Checkin:"
-msgstr ""
+msgstr "Entrada:"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Checkout"
-msgstr ""
+msgstr "Sortida"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationDetailsEdit.xml:0
 msgid "Checkout:"
-msgstr ""
+msgstr "Sortida:"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Children"
-msgstr ""
+msgstr "Infants"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationDetailsEdit.xml:0
 msgid "Children:"
-msgstr ""
+msgstr "Infants:"
 
 #. module: pos_pms_link
 #: model:ir.model.fields,field_description:pos_pms_link.field_pos_config__close_session_allowed
 #: model:ir.model.fields,field_description:pos_pms_link.field_res_config_settings__pos_close_session_allowed
 msgid "Close session allowed"
-msgstr ""
+msgstr "Permet tancar la sessió"
 
 #. module: pos_pms_link
 #: model:ir.model,name:pos_pms_link.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Paràmetres de configuració"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 #: model:ir.model,name:pos_pms_link.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contacte"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 msgid "Create"
-msgstr ""
+msgstr "Crea"
 
 #. module: pos_pms_link
 #. odoo-javascript
@@ -198,20 +200,20 @@ msgstr ""
 #: code:addons/pos_pms_link/static/src/xml/Popups/CashMovePopup.xml:0
 #: code:addons/pos_pms_link/static/src/xml/Popups/CashMovePopup.xml:0
 msgid "Customer"
-msgstr ""
+msgstr "Client"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/ReservationListScreen/ReservationListScreen.esm.js:0
 msgid "Deselect Reservation"
-msgstr ""
+msgstr "Desselecciona la reserva"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Discard"
-msgstr ""
+msgstr "Descarta"
 
 #. module: pos_pms_link
 #. odoo-python
@@ -222,55 +224,58 @@ msgid ""
 "In POS settings, select a Customer Account payment method with Identify "
 "Customer enabled and no cash or bank journal for Pay on reservation."
 msgstr ""
+"A la configuració del TPV, seleccioneu un mètode de pagament «Compte de "
+"client» amb «Fraccionar transaccions» activat i sense diari d’efectiu ni "
+"bancari per carregar els tiquets a la reserva."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationDetailsEdit.xml:0
 msgid "Internal comment:"
-msgstr ""
+msgstr "Comentari intern:"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/models.esm.js:0
 msgid "Invalid reservation response from the server."
-msgstr ""
+msgstr "La resposta del servidor sobre les reserves no és vàlida."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationDetailsEdit.xml:0
 msgid "Lines"
-msgstr ""
+msgstr "Línies"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Loading reservations…"
-msgstr ""
+msgstr "S’estan carregant les reserves…"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 msgid "More info"
-msgstr ""
+msgstr "Més informació"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationDetailsEdit.xml:0
 msgid "Name:"
-msgstr ""
+msgstr "Nom:"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/CashMovePopup.xml:0
 msgid "No Partner"
-msgstr ""
+msgstr "Sense client"
 
 #. module: pos_pms_link
 #. odoo-javascript
@@ -278,241 +283,245 @@ msgstr ""
 msgid ""
 "No current reservations found for this POS company and allowed properties."
 msgstr ""
+"No s’han trobat reserves vigents per a l’empresa del TPV i els establiments "
+"permesos."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Popups/PartnerListPopup.esm.js:0
 #, python-format
 msgid "No more customer found for \"%s\"."
-msgstr ""
+msgstr "No s’han trobat més clients per a «%s»."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Popups/PartnerListPopup.esm.js:0
 #: code:addons/pos_pms_link/static/src/js/Screens/ReservationListScreen/ReservationListScreen.esm.js:0
 msgid "Offline"
-msgstr ""
+msgstr "Sense connexió"
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_session.py:0
 msgid "Only POS users may load reservations."
-msgstr ""
+msgstr "Només els usuaris del TPV poden carregar reserves."
 
 #. module: pos_pms_link
 #: model:ir.model.fields,field_description:pos_pms_link.field_pos_order_line__pms_service_line_id
 msgid "PMS Service line"
-msgstr ""
+msgstr "Línia de servei del PMS"
 
 #. module: pos_pms_link
 #: model:ir.model.fields,field_description:pos_pms_link.field_pos_order__pms_reservation_id
 msgid "PMS reservation"
-msgstr ""
+msgstr "Reserva del PMS"
 
 #. module: pos_pms_link
 #: model:ir.model.fields,field_description:pos_pms_link.field_pms_service_line__pos_order_line_ids
 msgid "POS lines"
-msgstr ""
+msgstr "Línies del TPV"
 
 #. module: pos_pms_link
 #: model:ir.model.fields,field_description:pos_pms_link.field_pos_order__paid_on_reservation
 msgid "Paid on reservation"
-msgstr ""
+msgstr "Carregat a la reserva"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Partner name"
-msgstr ""
+msgstr "Nom del client"
 
 #. module: pos_pms_link
 #: model:ir.model.fields,field_description:pos_pms_link.field_pos_config__pay_on_reservation
 #: model:ir.model.fields,field_description:pos_pms_link.field_res_config_settings__pos_pay_on_reservation
 msgid "Pay on reservation"
-msgstr ""
+msgstr "Càrrec a la reserva"
 
 #. module: pos_pms_link
 #: model:ir.model.fields,field_description:pos_pms_link.field_pos_config__pay_on_reservation_method_id
 #: model:ir.model.fields,field_description:pos_pms_link.field_res_config_settings__pos_pay_on_reservation_method_id
 msgid "Pay on reservation method"
-msgstr ""
+msgstr "Mètode de pagament per carregar a la reserva"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 msgid "Pay order with reservation ?"
-msgstr ""
+msgstr "Voleu carregar el tiquet a la reserva?"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Popups/CashMovePopup.esm.js:0
 msgid "Please enter a reason."
-msgstr ""
+msgstr "Introduïu un motiu."
 
 #. module: pos_pms_link
 #: model:ir.model,name:pos_pms_link.model_pos_config
 msgid "Point of Sale Configuration"
-msgstr ""
+msgstr "Configuració del punt de venda"
 
 #. module: pos_pms_link
 #: model:ir.model,name:pos_pms_link.model_pos_order_line
 msgid "Point of Sale Order Lines"
-msgstr ""
+msgstr "Línies de comanda del punt de venda"
 
 #. module: pos_pms_link
 #: model:ir.model,name:pos_pms_link.model_pos_order
 msgid "Point of Sale Orders"
-msgstr ""
+msgstr "Comandes del punt de venda"
 
 #. module: pos_pms_link
 #: model:ir.model,name:pos_pms_link.model_pos_payment
 msgid "Point of Sale Payments"
-msgstr ""
+msgstr "Pagaments del punt de venda"
 
 #. module: pos_pms_link
 #: model:ir.model,name:pos_pms_link.model_pos_session
 msgid "Point of Sale Session"
-msgstr ""
+msgstr "Sessió del punt de venda"
 
 #. module: pos_pms_link
 #: model:ir.model,name:pos_pms_link.model_product_pricelist
 msgid "Pricelist"
-msgstr ""
+msgstr "Tarifa"
 
 #. module: pos_pms_link
 #: model:ir.model,name:pos_pms_link.model_product_pricelist_item
 msgid "Pricelist Rule"
-msgstr ""
+msgstr "Regla de tarifa"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/models.esm.js:0
 msgid "RESERVATION:"
-msgstr ""
+msgstr "RESERVA:"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/models.esm.js:0
 msgid "ROOMS:"
-msgstr ""
+msgstr "HABITACIONS:"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/PaymentScreen/PaymentScreen.xml:0
 #: model:ir.model,name:pos_pms_link.model_pms_reservation
 msgid "Reservation"
-msgstr ""
+msgstr "Reserva"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/ReservationSelectionButton.xml:0
 msgid "Reservation #"
-msgstr ""
+msgstr "Reserva núm."
 
 #. module: pos_pms_link
 #: model:ir.model.fields,field_description:pos_pms_link.field_pos_config__reservation_allowed_propertie_ids
 #: model:ir.model.fields,field_description:pos_pms_link.field_res_config_settings__pos_reservation_allowed_propertie_ids
 msgid "Reservation allowed properties"
-msgstr ""
+msgstr "Establiments permesos per a les reserves"
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_order.py:0
 msgid "Reservation does not exists."
-msgstr ""
+msgstr "La reserva no existeix."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 msgid "Reservation invoicing"
-msgstr ""
+msgstr "Facturació de la reserva"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/models.esm.js:0
 msgid "Reservation loading timed out. Please try again."
 msgstr ""
+"S’ha esgotat el temps d’espera per carregar les reserves. Torneu-ho a "
+"provar."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 msgid "Reservation payment configuration"
-msgstr ""
+msgstr "Configuració del càrrec a la reserva"
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_order.py:0
 msgid "Reservation payment is not configured."
-msgstr ""
+msgstr "El càrrec a la reserva no està configurat."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Retry"
-msgstr ""
+msgstr "Torna-ho a provar"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Room"
-msgstr ""
+msgstr "Habitació"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 msgid "Save"
-msgstr ""
+msgstr "Desa"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 msgid "Search Customers..."
-msgstr ""
+msgstr "Cerca clients…"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationListScreen.xml:0
 msgid "Search Reservations..."
-msgstr ""
+msgstr "Cerca reserves…"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 msgid "Search more"
-msgstr ""
+msgstr "Cerca més"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Popups/CashMovePopup.esm.js:0
 msgid "Select a partner before confirming."
-msgstr ""
+msgstr "Seleccioneu un client abans de confirmar."
 
 #. module: pos_pms_link
 #: model_terms:ir.ui.view,arch_db:pos_pms_link.res_config_settings_view_form_pos_pms
 msgid "Select partner for cash moves"
-msgstr ""
+msgstr "Selecciona un client per als moviments d’efectiu"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationDetailsEdit.xml:0
 msgid "Service"
-msgstr ""
+msgstr "Servei"
 
 #. module: pos_pms_link
 #: model:ir.model,name:pos_pms_link.model_pms_service_line
 msgid "Service by day"
-msgstr ""
+msgstr "Servei per dia"
 
 #. module: pos_pms_link
 #: model:ir.model,name:pos_pms_link.model_pms_service
 msgid "Services and its charges"
-msgstr ""
+msgstr "Serveis i els seus càrrecs"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationDetailsEdit.xml:0
 msgid "Services:"
-msgstr ""
+msgstr "Serveis:"
 
 #. module: pos_pms_link
 #. odoo-python
@@ -521,6 +530,8 @@ msgid ""
 "Session ended by cashier: <strong style=\"text-"
 "transform:uppercase;\">{cashier}<strong/>"
 msgstr ""
+"Sessió tancada pel caixer: <strong style=\"text-"
+"transform:uppercase;\">{cashier}<strong/>"
 
 #. module: pos_pms_link
 #. odoo-python
@@ -529,31 +540,33 @@ msgid ""
 "Session opened by cashier: <strong style=\"text-"
 "transform:uppercase;\">{cashier}<strong/>"
 msgstr ""
+"Sessió oberta pel caixer: <strong style=\"text-"
+"transform:uppercase;\">{cashier}<strong/>"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/ReservationListScreen/ReservationListScreen.esm.js:0
 msgid "Set Reservation"
-msgstr ""
+msgstr "Selecciona la reserva"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReceiptScreen/OrderReceipt.xml:0
 msgid "Signature:"
-msgstr ""
+msgstr "Signatura:"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/ChromeWidgets/CashMoveButton.esm.js:0
 #, python-format
 msgid "Successfully made a cash %s of %s."
-msgstr ""
+msgstr "S’ha registrat una %s d’efectiu de %s."
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_order.py:0
 msgid "The entire order must be paid on the reservation."
-msgstr ""
+msgstr "Cal carregar tot el tiquet a la reserva."
 
 #. module: pos_pms_link
 #. odoo-python
@@ -561,18 +574,20 @@ msgstr ""
 #: code:addons/pos_pms_link/models/pos_order.py:0
 msgid "The reservation payment method must belong to the POS company."
 msgstr ""
+"El mètode de pagament per carregar a la reserva ha de pertànyer a l’empresa "
+"del TPV."
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_session.py:0
 msgid "There is no cash payment method for this PoS Session"
-msgstr ""
+msgstr "Aquesta sessió del TPV no té cap mètode de pagament en efectiu"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/models.esm.js:0
 msgid "These reservation products could not be loaded in POS: "
-msgstr ""
+msgstr "No s’han pogut carregar al TPV aquests productes de la reserva: "
 
 #. module: pos_pms_link
 #. odoo-javascript
@@ -581,6 +596,8 @@ msgid ""
 "This operation will add all the products in the order to the reservation. "
 "RESERVATION:  PARTNER :  ROOM: "
 msgstr ""
+"Aquesta operació afegirà tots els productes del tiquet a la reserva. "
+"RESERVA:  CLIENT:  HABITACIÓ: "
 
 #. module: pos_pms_link
 #. odoo-javascript
@@ -590,18 +607,20 @@ msgid ""
 "This operation will add all the products in the order to the reservation. "
 "RESERVATION: %s PARTNER: %s ROOM: %s"
 msgstr ""
+"Aquesta operació afegirà tots els productes del tiquet a la reserva. "
+"RESERVA: %s CLIENT: %s HABITACIÓ: %s"
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_payment.py:0
 msgid "This payment method requires a reservation charge."
-msgstr ""
+msgstr "Aquest mètode de pagament requereix un càrrec a una reserva."
 
 #. module: pos_pms_link
 #. odoo-python
 #: code:addons/pos_pms_link/models/pos_order.py:0
 msgid "This reservation is not allowed for this POS."
-msgstr ""
+msgstr "Aquesta reserva no està permesa en aquest TPV."
 
 #. module: pos_pms_link
 #. odoo-python
@@ -612,61 +631,63 @@ msgid ""
 "Turn off Invoice to charge this ticket to a reservation. The reservation "
 "will be invoiced from PMS."
 msgstr ""
+"Desactiveu l’opció «Factura» per carregar aquest tiquet a una reserva. La "
+"reserva es facturarà des del PMS."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/ReservationSelectionButton.esm.js:0
 msgid "Unable to add reservation services"
-msgstr ""
+msgstr "No s’han pogut afegir els serveis de la reserva"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/ReservationListScreen/ReservationListScreen.esm.js:0
 msgid "Unable to connect. Showing cached reservations."
-msgstr ""
+msgstr "No s’ha pogut connectar. Es mostren les reserves desades localment."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/ReservationListScreen/ReservationListScreen.esm.js:0
 msgid "Unable to load reservations: "
-msgstr ""
+msgstr "No s’han pogut carregar les reserves: "
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Popups/PartnerListPopup.esm.js:0
 #: code:addons/pos_pms_link/static/src/js/Screens/ReservationListScreen/ReservationListScreen.esm.js:0
 msgid "Unable to save changes."
-msgstr ""
+msgstr "No s’han pogut desar els canvis."
 
 #. module: pos_pms_link
 #: model:ir.model.fields,field_description:pos_pms_link.field_pos_config__cash_move_partner
 #: model:ir.model.fields,field_description:pos_pms_link.field_res_config_settings__pos_cash_move_partner
 msgid "Use partner in cash moves"
-msgstr ""
+msgstr "Utilitza un client en els moviments d’efectiu"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Screens/ReservationListScreen/ReservationLine.xml:0
 msgid "VIEW"
-msgstr ""
+msgstr "MOSTRA"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/xml/Popups/PartnerListPopup.xml:0
 msgid "ZIP"
-msgstr ""
+msgstr "Codi postal"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/ChromeWidgets/CashMoveButton.esm.js:0
 msgid "in"
-msgstr ""
+msgstr "entrada"
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/ChromeWidgets/CashMoveButton.esm.js:0
 msgid "out"
-msgstr ""
+msgstr "sortida"
 
 #. module: pos_pms_link
 #. odoo-javascript
@@ -675,9 +696,11 @@ msgid ""
 "The reservation customer could not be loaded. Select a customer on the "
 "ticket and try again."
 msgstr ""
+"No s’ha pogut carregar el client de la reserva. Seleccioneu un client al "
+"tiquet i torneu-ho a provar."
 
 #. module: pos_pms_link
 #. odoo-javascript
 #: code:addons/pos_pms_link/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 msgid "Unable to load reservation customer"
-msgstr ""
+msgstr "No s’ha pogut carregar el client de la reserva"

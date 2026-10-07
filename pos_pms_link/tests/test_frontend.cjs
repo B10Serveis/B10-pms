@@ -5,6 +5,8 @@ const assert = require('assert/strict');
 const path = require('path');
 const extensions = new Map();
 class Order {
+    get_paymentlines() {return this.payments;}
+    remove_paymentline(line) {this.payments = this.payments.filter(item => item !== line);}
     add_product(product, options) { this.selected_orderline = {set_pms_service_line_id(id) { this.id = id; }}; }
 }
 class Orderline {
@@ -24,6 +26,18 @@ const order = new ExtendedOrder();
 assert.doesNotThrow(() => order.add_product({id: 1}));
 order.add_product({id: 1}, {pms_service_line_id: 23});
 assert.equal(order.selected_orderline.id, 23);
+const paymentOrder = new ExtendedOrder();
+const reservationPayment = {payment_method: {id: 7}};
+const cardPayment = {payment_method: {id: 8}};
+paymentOrder.pos = {config: {pay_on_reservation_method_id: [7, 'Reservation']}};
+paymentOrder.payments = [reservationPayment, cardPayment];
+paymentOrder.set_paid_on_reservation(true);
+paymentOrder.set_pms_reservation_id(4);
+paymentOrder.remove_paymentline(cardPayment);
+assert.equal(paymentOrder.get_paid_on_reservation(), true);
+paymentOrder.remove_paymentline(reservationPayment);
+assert.equal(paymentOrder.get_paid_on_reservation(), false);
+assert.equal(paymentOrder.get_pms_reservation_id(), false);
 const ExtendedLine = extensions.get(Orderline);
 const serviceLine = {id: 23, pos_order_lines: [{id: 99, qty: 1}]};
 const posForLines = {reservations: [{services: [{service_lines: [serviceLine]}]}]};
@@ -72,6 +86,36 @@ vm.runInNewContext(fs.readFileSync(path.join(__dirname,
     '../static/src/js/Screens/ReservationListScreen/ReservationListScreen.esm.js'), 'utf8')
     .replace(/^import .*;$/gm, ''), context);
 (async () => {
+    const serviceOrder = new ExtendedOrder();
+    const products = new Map([[1, {id: 1}]]);
+    const additions = [];
+    const now = new Date();
+    const today = [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'),
+        String(now.getDate()).padStart(2, '0')].join('-');
+    const reservation = {name: 'RES/1', rooms: '101', services: [{service_lines: [
+        {id: 1, date: today, day_qty: 1, pos_order_lines: [], product_id: [1, 'Loaded']},
+        {id: 2, date: today, day_qty: 0.5, pos_order_lines: [], product_id: [2, 'Missing']},
+    ]}]};
+    serviceOrder.pos = {
+        env: {_t: text => text},
+        db: {get_product_by_id: id => products.get(id)},
+        _addProducts: async (ids, setAvailable) => {
+            assert.equal(setAvailable, false);
+            assert.equal(ids[0], 2);
+        },
+    };
+    serviceOrder.add_product = (product, options) => additions.push({product, options});
+    serviceOrder.get_last_orderline = () => ({set_note() {}});
+    await assert.rejects(serviceOrder.add_reservation_services(reservation), /Missing/);
+    assert.equal(additions.length, 0);
+    serviceOrder.pos._addProducts = async (ids, setAvailable) => {
+        assert.equal(setAvailable, false);
+        products.set(2, {id: 2});
+    };
+    await serviceOrder.add_reservation_services(reservation);
+    assert.equal(additions.length, 2);
+    assert.equal(additions[1].product.id, 2);
+    assert.equal(additions[1].options.quantity, 0.5);
     const pos = new (extensions.get(PosGlobalState))();
     let calls = 0;
     pos.config = {pay_on_reservation: true};

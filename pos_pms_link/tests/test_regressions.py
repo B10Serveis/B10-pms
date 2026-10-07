@@ -112,12 +112,12 @@ class TestOrders(unittest.TestCase):
 
     def test_invoice_rejected(self):
         self.data['to_invoice'] = True
-        with self.assertRaises(UserError):
+        with self.assertRaisesRegex(UserError, 'Turn off Invoice'):
             self.process()
 
     def test_cash_method_rejected(self):
         self.method.type = 'cash'
-        with self.assertRaises(UserError):
+        with self.assertRaisesRegex(UserError, 'Customer Account'):
             self.process()
 
     def test_export_keeps_reservation(self):

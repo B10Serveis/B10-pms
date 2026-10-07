@@ -164,6 +164,7 @@ class PosSession(models.Model):
                     "state",
                     "service_ids",
                     "partner_name",
+                    "partner_id",
                     "adults",
                     "children",
                     "checkin",
@@ -345,11 +346,11 @@ class PosSession(models.Model):
             ]
         )
         cashier = self.env.context.get("cashier", False)
-        message_content = [f"-Cashier: {cashier}"] if cashier else []
-        message_content.append(f'-Cash {extras["translatedType"]}')
-        message_content.append(f'-Amount: {extras["formattedAmount"]}')
+        message_content = [_("-Cashier: %s") % cashier] if cashier else []
+        message_content.append(_("-Cash %s") % extras["translatedType"])
+        message_content.append(_("-Amount: %s") % extras["formattedAmount"])
         if reason:
-            message_content.append(f"-Reason: {reason}")
+            message_content.append(_("-Reason: %s") % reason)
         self.message_post(body="<br/>\n".join(message_content))
 
     def set_cashbox_pos(self, cashbox_value, notes):

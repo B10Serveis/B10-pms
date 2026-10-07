@@ -1,5 +1,11 @@
+16.0.2.0.2 (2026-10-07)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Creació automàtica de «Càrrec Hotel» per empresa en instal·lar o actualitzar,
+  amb fraccionament activat i sense diari. Assignació manual als TPV.
+
 16.0.2.0.0 (2026-10-06)
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Inici del fork B10 Serveis.
 * Correcció de l'elevació de permisos per context i dels dominis del loader.

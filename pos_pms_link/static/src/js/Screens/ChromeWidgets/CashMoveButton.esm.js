@@ -9,7 +9,7 @@ const PosPmsLinkCashMoveButton = (CashMoveButton) =>
             const {confirmed, payload} = await this.showPopup("CashMovePopup");
             if (!confirmed) return;
             const {type, amount, reason, partner} = payload;
-            const translatedType = this.env._t(type);
+            const translatedType = type === "in" ? this.env._t("in") : this.env._t("out");
             const formattedAmount = this.env.pos.format_currency(amount);
             if (!amount) {
                 return this.showNotification(
@@ -56,7 +56,7 @@ const PosPmsLinkCashMoveButton = (CashMoveButton) =>
             this.showNotification(
                 _.str.sprintf(
                     this.env._t("Successfully made a cash %s of %s."),
-                    type,
+                    translatedType,
                     formattedAmount
                 ),
                 3000

@@ -15,7 +15,14 @@ class ReservationSelectionButton extends PosComponent {
             {reservation: null}
         );
         if (confirmed) {
-            this.currentOrder.add_reservation_services(newReservation);
+            try {
+                await this.currentOrder.add_reservation_services(newReservation);
+            } catch (error) {
+                await this.showPopup("ErrorPopup", {
+                    title: this.env._t("Unable to add reservation services"),
+                    body: (error.data && error.data.message) || error.message || String(error),
+                });
+            }
         }
     }
 }

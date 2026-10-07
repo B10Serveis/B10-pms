@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Run on installation and upgrade; the method prevents duplicates. -->
+    <function model="pos.payment.method" name="_create_default_hotel_payment_methods" />
+</odoo>

@@ -74,15 +74,19 @@ class PosOrder(models.Model):
             ):
                 raise UserError(_("This reservation is not allowed for this POS."))
             method = config.pay_on_reservation_method_id
-            if (
-                not method
-                or method.type != "pay_later"
-                or method.company_id != session.company_id
-                or data.get("to_invoice")
-            ):
+            if not method or method.type != "pay_later":
                 raise UserError(_(
-                    "Reservation payments require a deferred payment method "
-                    "and cannot be invoiced in POS."
+                    "In POS settings, select a Customer Account payment method "
+                    "with Identify Customer enabled and no cash or bank journal for Pay on reservation."
+                ))
+            if method.company_id != session.company_id:
+                raise UserError(_(
+                    "The reservation payment method must belong to the POS company."
+                ))
+            if data.get("to_invoice"):
+                raise UserError(_(
+                    "Turn off Invoice to charge this ticket to a reservation. "
+                    "The reservation will be invoiced from PMS."
                 ))
             payments = data.get("statement_ids", [])
             if not draft and (
