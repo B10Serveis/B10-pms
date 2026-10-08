@@ -56,6 +56,17 @@ class PmsReservation(models.Model):
         comodel_name="pms.room",
         compute="_compute_allowed_room_ids",
     )
+    assigned_room_type_ids = fields.Many2many(
+        string="Assigned Room Types",
+        help="Room types actually assigned on the reservation nights.",
+        comodel_name="pms.room.type",
+        relation="pms_reservation_assigned_room_type_rel",
+        column1="reservation_id",
+        column2="room_type_id",
+        compute="_compute_assigned_room_type_ids",
+        store=True,
+        copy=False,
+    )
     folio_id = fields.Many2one(
         string="Folio",
         help="The folio where the reservations are included",
@@ -371,6 +382,7 @@ class PmsReservation(models.Model):
         default=True,
     )
     state = fields.Selection(
+        string="Reservation Status",
         help="The state of the reservation. "
         "It can be 'Pre-reservation', 'Pending arrival', 'On Board', 'Out', "
         "'Cancelled', 'Arrival Delayed' or 'Departure Delayed'",
@@ -1545,6 +1557,13 @@ class PmsReservation(models.Model):
                 )
             else:
                 reservation.rooms = reservation.preferred_room_id.name
+
+    @api.depends("reservation_line_ids.room_id.room_type_id")
+    def _compute_assigned_room_type_ids(self):
+        for reservation in self:
+            reservation.assigned_room_type_ids = reservation.reservation_line_ids.mapped(
+                "room_id.room_type_id"
+            )
 
     @api.depends("folio_id", "folio_id.reservation_type")
     def _compute_reservation_type(self):

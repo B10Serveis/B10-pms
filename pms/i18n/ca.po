@@ -16,6 +16,29 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: pms
+#: model_terms:ir.ui.view,arch_db:pms.pms_reservation_view_search
+msgid "Not cancelled"
+msgstr "No cancel·lats"
+
+#. module: pms
+#: model:ir.model.fields,field_description:pms.field_pms_reservation__state
+#: model_terms:ir.ui.view,arch_db:pms.pms_reservation_view_search
+#. odoo-javascript
+#: code:addons/pms/static/src/xml/reservation_timeline_search_panel.xml:0
+msgid "Reservation Status"
+msgstr "Estat"
+
+#. module: pms
+#: model:ir.model.fields,field_description:pms.field_pms_reservation__assigned_room_type_ids
+msgid "Assigned Room Types"
+msgstr "Tipus d’habitació assignats"
+
+#. module: pms
+#: model:ir.model.fields,help:pms.field_pms_reservation__assigned_room_type_ids
+msgid "Room types actually assigned on the reservation nights."
+msgstr "Tipus d’habitació realment assignats a les nits de la reserva."
+
+#. module: pms
 #. odoo-python
 #: code:addons/pms/models/pms_reservation.py:0
 #, python-format

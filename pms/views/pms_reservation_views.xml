@@ -4,6 +4,7 @@
         <field name="name">Reservation</field>
         <field name="res_model">pms.reservation</field>
         <field name="view_mode">tree,form,graph,pivot,calendar,timeline</field>
+        <field name="context">{'search_default_not_cancelled': True}</field>
     </record>
 
     <record model="ir.ui.view" id="pms_reservation_view_form">
@@ -795,16 +796,19 @@
         <field name="arch" type="xml">
             <timeline
                 string="Reservations"
+                js_class="pms_reservation_timeline"
                 date_start="checkin_datetime"
                 date_stop="checkout_datetime"
                 default_group_by="preferred_room_id"
                 stack="True"
                 mode="month"
                 event_open_popup="False"
+                colors="#E2E8F0:state == 'draft';#BFDBFE:state == 'confirm';#BBF7D0:state == 'onboard';#DDD6FE:state == 'done';#FECACA:state == 'cancel';#FED7AA:state == 'arrival_delayed';#FDE68A:state == 'departure_delayed'"
             >
                 <field name="name" />
                 <field name="partner_id" />
                 <field name="preferred_room_id" />
+                <field name="state" />
                 <templates>
                     <div t-name="timeline-item">
                         <div t-esc="record.name" />
@@ -973,6 +977,12 @@
                 <field name="agency_id" />
                 <field name="pms_property_id" />
                 <filter
+                    string="Not cancelled"
+                    name="not_cancelled"
+                    domain="[('state', '!=', 'cancel')]"
+                />
+                <separator />
+                <filter
                     string="My Reservations"
                     name="my_reservations"
                     domain="[('user_id', '=', uid)]"
@@ -1125,7 +1135,7 @@
                         context="{'group_by':'user_id'}"
                     />
                 </group>
-                <searchpanel>
+                <searchpanel view_types="list,tree,kanban,timeline">
                     <field
                         name="pms_property_id"
                         string="Property"
@@ -1134,7 +1144,7 @@
                     />
                     <field
                         name="state"
-                        string="State"
+                        string="Reservation Status"
                         enable_counters="1"
                         select="multi"
                     />
@@ -1145,9 +1155,10 @@
                         select="multi"
                     />
                     <field
-                        name="room_type_id"
+                        name="assigned_room_type_ids"
                         string="Room Type"
                         enable_counters="1"
+                        select="multi"
                         icon="fa-hotel"
                         color="#784f73"
                     />

@@ -4,7 +4,7 @@
 {
     "name": "PMS (Property Management System)",
     "summary": "A property management system",
-    "version": "16.0.5.0.2",
+    "version": "16.0.5.1.0",
     "development_status": "Beta",
     "category": "Generic Modules/Property Management System",
     "website": "https://github.com/OCA/pms",
@@ -25,6 +25,7 @@
         "partner_contact_birthdate",
         "partner_contact_nationality",
         "web_timeline",
+        "web_responsive",
         "analytic",
         "account",
         "account_payment",
@@ -118,6 +119,10 @@
         ],
     },
     "assets": {
+        "web.assets_backend": [
+            "pms/static/src/js/reservation_timeline.js",
+            "pms/static/src/xml/reservation_timeline_search_panel.xml",
+        ],
         "web.assets_frontend": [
             "pms/static/src/js/payment_form.js",
         ],

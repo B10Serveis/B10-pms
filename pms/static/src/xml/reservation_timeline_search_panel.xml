@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="pms.ReservationTimeline" t-inherit="web_timeline.TimelineView" t-inherit-mode="primary">
+        <xpath expr="//div[hasclass('oe_timeline_buttons')]" position="inside">
+            <div class="d-flex flex-wrap gap-3 mt-2 mb-2" role="list" aria-label="Reservation Status">
+                <span t-foreach="widget.stateLegend" t-as="status" t-key="status.value"
+                    class="d-inline-flex align-items-center gap-1" role="listitem">
+                    <span t-att-style="'background-color: ' + status.color + '; width: 12px; height: 12px; border: 1px solid #64748B; border-radius: 2px;'" />
+                    <span t-esc="status.label" />
+                </span>
+            </div>
+        </xpath>
+    </t>
+    <!-- web_responsive's legacy mobile summary needs a key under Owl 2. -->
+    <t t-inherit="web.Legacy.SearchPanel" t-inherit-mode="extension" owl="1">
+        <xpath expr="//span[@t-foreach='filters']" position="attributes">
+            <attribute name="t-key">filter_index</attribute>
+        </xpath>
+    </t>
+</templates>

@@ -101,7 +101,7 @@
                             class="oe_stat_button"
                             name="%(open_pms_reservation_form_tree_all)d"
                             icon="fa-window-close"
-                            context="{'search_default_folio_id': id, 'default_folio_id': id, 'search_default_cancel': True}"
+                            context="{'search_default_folio_id': id, 'default_folio_id': id, 'search_default_cancel': True, 'search_default_not_cancelled': False}"
                             attrs="{'invisible': [('number_of_cancelled_rooms', '=', 0)]}"
                         >
                             <field
