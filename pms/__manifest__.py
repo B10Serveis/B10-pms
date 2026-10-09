@@ -120,11 +120,15 @@
     },
     "assets": {
         "web.assets_backend": [
+            "pms/static/src/js/reservation_list_export.esm.js",
             "pms/static/src/js/reservation_timeline.js",
             "pms/static/src/xml/reservation_timeline_search_panel.xml",
         ],
         "web.assets_frontend": [
             "pms/static/src/js/payment_form.js",
+        ],
+        "web.qunit_suite_tests": [
+            "pms/static/tests/reservation_list_export_tests.esm.js",
         ],
     },
     "pre_init_hook": "pre_init_hook",

@@ -20,6 +20,46 @@ class PmsReservation(models.Model):
     _check_pms_properties_auto = True
     _check_company_auto = True
 
+    @api.model
+    def _pms_export_order(self, groupby=None):
+        """Use the list order only for searches made by the standard exporter."""
+        terms = self.env.context.get("pms_export_order", [])
+        group_fields = {name.split(":")[0] for name in groupby or []}
+        return ", ".join(
+            "%s %s" % (term["name"], "ASC" if term.get("asc") else "DESC")
+            for term in terms
+            if term["name"] in self._fields
+            and (
+                groupby is None
+                or term["name"] in group_fields
+                or self._fields[term["name"]].group_operator
+            )
+        )
+
+    @api.model
+    def search(self, domain, offset=0, limit=None, order=None, count=False):
+        order = order or self._pms_export_order()
+        return super().search(domain, offset=offset, limit=limit, order=order, count=count)
+
+    @api.model
+    def read_group(
+        self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
+    ):
+        groups = [groupby] if isinstance(groupby, str) else groupby
+        if not orderby:
+            orderby = self._pms_export_order(groups[:1] if lazy else groups)
+            if orderby:
+                # The user may sort on a column omitted from the exported fields.
+                fields = list(fields)
+                present = {name.split(":")[0] for name in fields}
+                for term in orderby.split(", "):
+                    name = term.split()[0]
+                    if name not in present:
+                        fields.append(name)
+        return super().read_group(
+            domain, fields, groupby, offset=offset, limit=limit, orderby=orderby, lazy=lazy
+        )
+
     name = fields.Text(
         string="Reservation Code",
         help="Reservation Code Identification",

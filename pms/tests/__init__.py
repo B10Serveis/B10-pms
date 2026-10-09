@@ -53,3 +53,4 @@ from . import test_reservation_taxes
 from . import test_pms_portal_security
 from . import test_pms_pricelist_min_price
 from . import test_pms_online_payment
+from . import test_pms_reservation_export
