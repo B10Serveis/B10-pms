@@ -4,11 +4,11 @@
 {
     "name": "PMS (Property Management System)",
     "summary": "A property management system",
-    "version": "16.0.5.1.0",
+    "version": "16.0.5.1.1",
     "development_status": "Beta",
     "category": "Generic Modules/Property Management System",
-    "website": "https://github.com/OCA/pms",
-    "author": "Commit [Sun], Odoo Community Association (OCA)",
+    "website": "https://github.com/B10Serveis/B10-pms",
+    "author": "Batista10, Commit [Sun], Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": True,
     "installable": True,
@@ -119,6 +119,13 @@
         ],
     },
     "assets": {
+        "web.assets_common": [
+            (
+                "replace",
+                "web/static/src/legacy/js/libs/moment.js",
+                "pms/static/src/js/moment_locale.js",
+            ),
+        ],
         "web.assets_backend": [
             "pms/static/src/js/reservation_list_export.esm.js",
             "pms/static/src/js/reservation_timeline.js",

@@ -1,5 +1,12 @@
 # Registre de canvis de PMS
 
+## 16.0.5.1.1 — 2026-10-09
+
+- Corregir la inicialització catalana de Moment perquè els temps relatius
+  del xat de les reserves no fallin amb l'error `humanize` quan la
+  configuració catalana es crea abans de carregar el fitxer d'idioma.
+  Conservar la correcció d'Odoo per analitzar els noms dels mesos.
+
 ## 16.0.5.1.0 — 2026-10-08
 
 Millores de filtratge i llegibilitat de la vista timeline de reserves.
