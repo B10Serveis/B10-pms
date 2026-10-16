@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_city_form_ine" model="ir.ui.view">
+        <field name="name">res.city.form.ine</field>
+        <field name="model">res.city</field>
+        <field name="inherit_id" ref="base_location.view_city_form"/>
+        <field name="arch" type="xml">
+            <field name="state_id" position="after">
+                <field name="ine_municipality_code"/>
+                <field name="ine_municipality_error" attrs="{'invisible': [('ine_municipality_error', '=', False)]}"/>
+                <field name="ine_municipality_previous_code" attrs="{'invisible': [('ine_municipality_previous_code', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_country_state_form_ine" model="ir.ui.view">
+        <field name="name">res.country.state.form.ine</field>
+        <field name="model">res.country.state</field>
+        <field name="inherit_id" ref="base.view_country_state_form"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="ine_province_code"/>
+                <field name="ine_province_error" attrs="{'invisible': [('ine_province_error', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_country_state_tree_ine" model="ir.ui.view">
+        <field name="name">res.country.state.tree.ine</field>
+        <field name="model">res.country.state</field>
+        <field name="inherit_id" ref="base.view_country_state_tree"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="ine_province_code" optional="show"/>
+                <field name="ine_province_error" optional="hide"/>
+            </field>
+        </field>
+    </record>
+</odoo>

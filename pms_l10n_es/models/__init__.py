@@ -9,3 +9,6 @@ from . import pms_ses_communication
 from . import pms_folio
 from . import pms_reservation
 from . import pms_tourism_classification
+from . import res_city
+from . import account_payment_mode
+from . import pms_mossos_payment

@@ -1,8 +1,23 @@
 from odoo import api, fields, models
 
+from .mossos_payment import MOSSOS_PAYMENT_TYPES
+
 
 class PmsProperty(models.Model):
     _inherit = "pms.property"
+
+    mossos_enabled = fields.Boolean(string="Mossos traveller register")
+    mossos_property_code = fields.Char(string="Mossos establishment identifier")
+    mossos_internet = fields.Selection(
+        [("S", "Yes"), ("N", "No")], string="Internet at the establishment"
+    )
+
+    mossos_default_payment_type = fields.Selection(
+        MOSSOS_PAYMENT_TYPES,
+        string="Default Mossos payment type",
+        help="Used when there is no actual receipt or the oldest receipt has no "
+        "mapped payment mode. This does not create an accounting payment.",
+    )
 
     institution = fields.Selection(
         [
