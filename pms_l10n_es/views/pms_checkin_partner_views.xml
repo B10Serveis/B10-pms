@@ -8,6 +8,15 @@
             ref="pms_partner_identification.pms_checkin_partner_view_form"
         />
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='city']" position="before">
+                <field
+                    name="zip_id"
+                    placeholder="ZIP or city..."
+                    domain="[('country_id', '=?', country_id)]"
+                    options="{'no_create': True, 'no_open': True}"
+                    class="o_address_street"
+                />
+            </xpath>
             <xpath expr="//field[@name='document_expedition_date']" position="after">
                 <field name="support_number" />
             </xpath>

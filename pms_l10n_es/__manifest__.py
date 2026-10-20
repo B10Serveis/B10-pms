@@ -3,7 +3,7 @@
 
 {
     "name": "PMS Spanish Adaptation",
-    "version": "16.0.3.5.1",
+    "version": "16.0.3.5.2",
     "author": "Commit [Sun], Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": True,
@@ -18,6 +18,7 @@
         "partner_contact_birthdate",
         "partner_contact_nationality",
         "base_iso3166",
+        "base_location",
         "queue_job",
         "base_vat",
         "l10n_es_aeat",

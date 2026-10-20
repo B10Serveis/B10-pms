@@ -1,5 +1,13 @@
 # Registre de canvis
 
+## 16.0.3.5.2 — Autocompletat de l'adreça del viatger
+
+La fitxa del registre d'entrada incorpora el selector d'ubicacions de
+`base_location`, amb cerca per codi postal o municipi. La selecció completa
+conjuntament municipi, codi postal, província i país, també en crear o editar
+registres per ORM. L'adreça es conserva per estada; una modificació manual
+desvincula la ubicació si deixa de coincidir, sense esborrar l'adreça.
+
 ## 16.0.3.5.1 — Traduccions al català i castellà
 
 S'actualitza el catàleg de traduccions del mòdul i es completen els 417 textos
