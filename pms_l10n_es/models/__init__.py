@@ -12,3 +12,4 @@ from . import pms_tourism_classification
 from . import res_city
 from . import account_payment_mode
 from . import pms_mossos_payment
+from . import pms_mossos_batch

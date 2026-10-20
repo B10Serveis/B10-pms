@@ -3,7 +3,7 @@
 
 {
     "name": "PMS Spanish Adaptation",
-    "version": "16.0.3.4.0",
+    "version": "16.0.3.5.1",
     "author": "Commit [Sun], Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": True,
@@ -41,6 +41,7 @@
         "data/queue_job_function_data.xml",
         "data/pms_tourism_classification.xml",
         "security/ir.model.access.csv",
+        "security/mossos_security.xml",
         "views/pms_property_views.xml",
         "views/mossos_payment_views.xml",
         "views/ine_location_views.xml",
@@ -54,6 +55,7 @@
         "wizards/traveller_report.xml",
         "wizards/wizard_ine.xml",
         "wizards/mossos_preview.xml",
+        "views/pms_mossos_batch_views.xml",
         "reports/invoice.xml",
     ],
     "installable": True,

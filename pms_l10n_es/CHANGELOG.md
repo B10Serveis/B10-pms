@@ -1,5 +1,104 @@
 # Registre de canvis
 
+## 16.0.3.5.1 — Traduccions al català i castellà
+
+S'actualitza el catàleg de traduccions del mòdul i es completen els 417 textos
+en català i castellà, incloent-hi la configuració, la previsualització, els
+errors de validació i la generació i l'historial de fitxers de Mossos.
+
+## 16.0.3.5.0 — Generació V24 i historial de fitxers Mossos
+
+L’assistent permet generar un fitxer amb els viatgers seleccionats i obre el
+lot des del qual es pot descarregar. Es torna a validar la informació actual
+en generar, encara que la previsualització anterior no mostrés errors.
+Només s’accepten fitxes de l’establiment amb entrada real en estat onboard o
+done, que coincideixin amb el dia seleccionat o amb la revisió explícita
+d’entrades anteriors. No cal tenir cap factura.
+
+### Contingut i nom
+
+S’aplica `fitxer_mossos.pdf`, actualització de maig de 2025, pàgines 18–23:
+capçalera de set camps amb V24, una línia de 32 camps per viatger, separadors
+`|` i camps buits preservats, dates yyyyMMdd, hores HHmm i registres separats
+per CRLF, sense un salt final addicional. UTF-8 sense BOM, confirmat per
+l’usuari durant aquesta sessió. Les longituds es comproven després de passar
+a majúscules; no es retallen dades. Es conserven accents i caràcters d’adreça
+com º i ª; es rebutgen separadors, controls i lletres d’altres alfabets.
+
+La capçalera reflecteix el nombre real de viatgers seleccionats. L’entrada i
+la data de contracte es converteixen d’UTC a l’hora local de l’establiment;
+la sortida és la data i hora prevista de la reserva. El contracte és C i el
+número correspon a la reserva. La reserva representa una habitació: un canvi
+de la cambra assignada durant l’estada no crea una habitació simultània més.
+Les dades personals són les de la fitxa del viatger; pagament i codis postals
+utilitzen les correspondències definides als increments anteriors.
+
+Es distingeixen document espanyol i estranger pel tipus i país emissor;
+NIE s’informa al camp estranger. S’utilitza O, d’un caràcter, segons la taula
+del PDF, encara que les regles descriptives també esmentin OTRO. S’afegeix la
+comprovació de la lletra de DNI/NIE i de totes les longituds dels 32 camps,
+a més dels controls ja existents de menors, parentiu, suport, adreça i contacte.
+
+El nom és `<identificador>.001.txt`. El PDF mostra exemples acabats en .001
+i també indica que l’extensió comuna és .txt: es conserva la seqüència de tres
+dígits dins el nom i s’hi afegeix l’extensió .txt. El següent número es pot
+configurar a l’establiment; per defecte és 001. Després del 999 torna al 001.
+La generació bloqueja la fila de l’establiment mentre reserva el número.
+Una validació fallida no consumeix numeració. El format no s’ha presentat ni
+validat amb una càrrega real al portal en aquest desenvolupament.
+
+### Lots i comunicació
+
+El menú Reserves → Mossos generated files conserva el fitxer exacte, la data,
+l’usuari generador i les instantànies dels viatgers inclosos. Tornar a generar
+amb el mateix assistent o recuperar una selecció idèntica amb un lot pendent
+reutilitza el fitxer existent. Descarregar no regenera el contingut ni consumeix
+una altra seqüència. Els canvis posteriors a les fitxes no alteren el fitxer.
+
+Generar o descarregar deixa el lot pendent de presentació. Només el botó de
+confirmació manual, després de presentar el fitxer al portal, marca el lot
+com a presentat, amb data i usuari. Es pot adjuntar el comprovant, abans o
+després de confirmar. No es contacta amb el portal ni es verifica el comprovant.
+Els valors inicials d’estat i codificació són explícits i no poden heretar un
+estat de presentació d’altres contextos de la interfície.
+
+Els viatgers que ja són en un lot generat o presentat no es tornen a oferir
+com a pendents. El control es fa per fitxa/estada; una nova estada del mateix
+contacte crea una nova comunicació. Les presentacions externes anteriors a
+B10 no s’importen automàticament.
+
+Per corregir dades abans de presentar, cal cancel·lar el lot amb un motiu i
+generar-ne un altre. La cancel·lació conserva el fitxer i els viatgers antics
+i allibera aquestes fitxes per al nou lot. Un lot presentat no es pot cancel·lar.
+No es permet esborrar l’historial o editar el contingut dels fitxers generats.
+Els permisos de lectura i descàrrega es limiten a la societat i als establiments
+autoritzats de l’usuari PMS. El comptador tècnic es pot incrementar des de
+recepció sense donar permisos generals de configuració de l’establiment.
+
+### Actualització i validació
+
+Cal actualitzar `pms_l10n_es` i reiniciar Odoo per crear els nous models,
+regles, camps i vistes. Es manté la correcció visual de la versió 16.0.3.4.1.
+No es marca cap fitxa existent com a comunicada durant l’actualització.
+Els processos SES es conserven.
+
+69 proves Odoo correctes a `mossos_preview_test`: 19 de generació/historial,
+14 de previsualització, 13 de pagaments, 18 de codis INE i 5 dels informes SES.
+Inclou format binari UTF-8, CRLF, recompte, camps buits, hores locals,
+selecció parcial, DNI/NIE/passaports, menors sense document, longituds,
+revalidació, numeració 999→001, recuperació sense duplicats, cancel·lació,
+confirmació manual, nou allotjament del mateix contacte, immutabilitat del
+fitxer i permisos d’un usuari de recepció i d’un altre establiment.
+Sintaxi Python, XML i `git diff --check` correctes. Sense desplegament ni
+modificacions de `fasersia` i sense cap presentació real al portal.
+
+## 16.0.3.4.1 — Color de les files de Mossos sense errors
+
+La decoració vermella comprova `bool(errors)` en lloc de comparar el text
+amb `False`. Així, un text buit no activa el color d’error; les files amb
+errors continuen en vermell. No canvien les validacions ni la selecció dels
+viatgers. Cal actualitzar `pms_l10n_es` per carregar la vista corregida.
+
 ## 16.0.3.4.0 — Correspondència dels pagaments Mossos
 
 S’afegeix `account.payment.mode.mossos_payment_type` per relacionar manualment

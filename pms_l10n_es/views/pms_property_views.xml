@@ -27,6 +27,7 @@
                 <group string="Mossos traveller register">
                     <field name="mossos_enabled" />
                     <field name="mossos_property_code" attrs="{'invisible': [('mossos_enabled', '=', False)]}" />
+                    <field name="mossos_next_file_number" attrs="{'invisible': [('mossos_enabled', '=', False)]}" />
                     <field name="mossos_default_payment_type" attrs="{'invisible': [('mossos_enabled', '=', False)]}" />
                     <field name="mossos_internet" attrs="{'invisible': [('mossos_enabled', '=', False)]}" />
                 </group>

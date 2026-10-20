@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mossos_batch_tree" model="ir.ui.view">
+        <field name="name">pms.mossos.batch.tree</field>
+        <field name="model">pms.mossos.batch</field>
+        <field name="arch" type="xml">
+            <tree create="0" delete="0" decoration-muted="state == 'cancelled'">
+                <field name="filename"/>
+                <field name="pms_property_id"/>
+                <field name="generated_at"/>
+                <field name="arrival_day"/>
+                <field name="traveller_count"/>
+                <field name="state"/>
+                <field name="presented_at"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_mossos_batch_form" model="ir.ui.view">
+        <field name="name">pms.mossos.batch.form</field>
+        <field name="model">pms.mossos.batch</field>
+        <field name="arch" type="xml">
+            <form create="0" delete="0">
+                <header>
+                    <button name="action_download" type="object" string="Download V24 file" class="oe_highlight"/>
+                    <button name="action_confirm_presented" type="object" string="Confirm portal submission" attrs="{'invisible': [('state', '!=', 'generated')]}" confirm="Confirm only after this exact file has been successfully submitted to the Mossos portal. Downloading the file does not submit it."/>
+                    <button name="action_cancel" type="object" string="Cancel unsubmitted file" attrs="{'invisible': [('state', '!=', 'generated')]}" confirm="Cancel only if this file has not been submitted to the portal. Its travellers will become available for a corrected file."/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-info" role="status">This is a saved snapshot. Generating or downloading it does not submit it. To correct data before submission, enter a reason, cancel this file and generate a new one.</div>
+                    <div class="alert alert-warning" role="status" attrs="{'invisible': [('state', '!=', 'cancelled')]}">This file was cancelled. Do not submit it to the portal.</div>
+                    <group>
+                        <group>
+                            <field name="pms_property_id"/>
+                            <field name="filename"/>
+                            <field name="file_data" filename="filename" invisible="1"/>
+                            <field name="file_encoding"/>
+                            <field name="file_number"/>
+                            <field name="traveller_count"/>
+                        </group>
+                        <group>
+                            <field name="arrival_day"/>
+                            <field name="generated_at"/>
+                            <field name="generated_by"/>
+                            <field name="presented_at"/>
+                            <field name="presented_by"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="receipt_filename" invisible="1"/>
+                        <field name="receipt_file" filename="receipt_filename"/>
+                        <field name="cancellation_reason" attrs="{'readonly': [('state', '!=', 'generated')]}"/>
+                    </group>
+                    <field name="line_ids">
+                        <tree create="0" delete="0">
+                            <field name="checkin_partner_id"/>
+                            <field name="firstname"/>
+                            <field name="lastname"/>
+                            <field name="document_number"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_mossos_batches" model="ir.actions.act_window">
+        <field name="name">Mossos generated files</field>
+        <field name="res_model">pms.mossos.batch</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_mossos_batches" name="Mossos generated files" parent="pms.menu_reservations" action="action_mossos_batches" sequence="33" groups="pms.group_pms_user"/>
+</odoo>

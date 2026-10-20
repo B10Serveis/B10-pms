@@ -8,3 +8,4 @@ from . import test_mossos_preview
 from . import test_ine_province_code
 from . import test_ine_municipality_code
 from . import test_mossos_payment
+from . import test_mossos_export

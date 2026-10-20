@@ -7,3 +7,5 @@ user_access_pms_tourism_classification, user_access_pms_tourism_classification,m
 manager_access_pms_tourism_classification,manager_access_pms_tourism_classification,model_pms_tourism_classification,pms.group_pms_manager,1,1,1,1
 access_mossos_preview,Mossos preview,model_pms_mossos_preview,pms.group_pms_user,1,1,1,1
 access_mossos_preview_line,Mossos preview line,model_pms_mossos_preview_line,pms.group_pms_user,1,1,1,1
+access_mossos_batch,Mossos file history,model_pms_mossos_batch,pms.group_pms_user,1,1,0,0
+access_mossos_batch_line,Mossos exported travellers,model_pms_mossos_batch_line,pms.group_pms_user,1,0,0,0

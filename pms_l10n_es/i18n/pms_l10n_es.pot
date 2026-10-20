@@ -6,11 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-20 08:40+0000\n"
+"PO-Revision-Date: 2026-10-20 08:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 
 #. module: pms_l10n_es
@@ -52,10 +54,27 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/models/pms_folio.py:0
+#: code:addons/pms_l10n_es/models/pms_folio.py:0
 #, python-format
 msgid ""
 "%(guests)s is of age, so the unaccompanied minors declaration of folio "
 "%(folio)s does not hold. Uncheck the declaration or review the birthdates."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "%s contains a record separator."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "%s exceeds the maximum length."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -64,8 +83,91 @@ msgid "<strong>Tourism Classification:</strong>"
 msgstr ""
 
 #. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "A Mossos file cannot contain more than 99999 travellers."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "A document number requires its type and issuing country."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "A family relationship is required for minors."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid ""
+"A foreign national ID cannot be mapped to Spanish DNI without an explicit "
+"mapping."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "A minor requires a relationship code."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "A second surname is required for DNI."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "A telephone number or email is required."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.constraint,message:pms_l10n_es.constraint_pms_mossos_batch_line_batch_guest_unique
+msgid "A traveller can only appear once in a Mossos file."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "A two-digit postal province code is required."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "A valid birthdate is required."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_checkin_partner__ses_partners_relationship__ab
 msgid "Abuelo/a"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "Actual arrival is missing or is in the future."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -77,8 +179,39 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "All reservation rooms must have the same institution property id."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#, python-format
+msgid "Ambiguous ZIP-to-INE municipality mapping: %s"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "An identity document is required from age 14."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__arrival_day
+msgid "Arrival Day"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__arrival_local
+msgid "Arrival Local"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__through_date
+msgid "Arrival day"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -88,6 +221,8 @@ msgid "Authorization signed by the legal guardian of the minors."
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__batch_id
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__batch_id
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__batch_id
 msgid "Batch"
 msgstr ""
@@ -95,6 +230,14 @@ msgstr ""
 #. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_property__ine_seats
 msgid "Beds available excluding extra beds"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Birthdate is in the future."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -108,8 +251,46 @@ msgid "Bisnieto/a"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_batch_form
+msgid ""
+"Cancel only if this file has not been submitted to the portal. Its "
+"travellers will become available for a corrected file."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_batch_form
+msgid "Cancel unsubmitted file"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__cancellation_reason
+msgid "Cancellation Reason"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_batch__state__cancelled
+msgid "Cancelled before submission"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_tourism_type_category__category
 msgid "Category"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__checkin_partner_id
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__checkin_partner_id
+msgid "Checkin Partner"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model,name:pms_l10n_es.model_res_city
+msgid "City"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_preview
+msgid "Close"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -148,8 +329,92 @@ msgid "Communications related to this reservation"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__company_id
+#: model:ir.model.fields,field_description:pms_l10n_es.field_wizard_payment_folio__company_id
+msgid "Company"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__configuration_errors
+msgid "Configuration Errors"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/pms_mossos_payment.py:0
+#: code:addons/pms_l10n_es/models/pms_mossos_payment.py:0
+#, python-format
+msgid ""
+"Configure a Mossos payment type on the oldest receipt's payment mode or a "
+"default in the establishment's Mossos settings."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid ""
+"Configure the establishment timezone and its 9/10-character Mossos "
+"identifier."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid ""
+"Configure the selected property first: in its Settings tab, set Institution "
+"to Mossos d’Esquadra and enter the police establishment identifier in "
+"Institution Property ID."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_batch_form
+msgid ""
+"Confirm only after this exact file has been successfully submitted to the "
+"Mossos portal. Downloading the file does not submit it."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_batch_form
+msgid "Confirm portal submission"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model,name:pms_l10n_es.model_res_partner
 msgid "Contact"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Contract and document issue dates cannot be in the future."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Contract date is in the future."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Contract number exceeds 20 characters."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "Country codes must use three ISO alpha-3 letters."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -160,6 +425,10 @@ msgstr ""
 #. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_tourism_type_category__create_uid
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_wizard__create_uid
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__create_uid
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__create_uid
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__create_uid
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__create_uid
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__create_uid
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_tourism_classification__create_uid
 #: model:ir.model.fields,field_description:pms_l10n_es.field_traveller_report_wizard__create_uid
@@ -169,6 +438,10 @@ msgstr ""
 #. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_tourism_type_category__create_date
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_wizard__create_date
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__create_date
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__create_date
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__create_date
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__create_date
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__create_date
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_tourism_classification__create_date
 #: model:ir.model.fields,field_description:pms_l10n_es.field_traveller_report_wizard__create_date
@@ -186,8 +459,33 @@ msgid "Cónyuge"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__account_payment_mode__mossos_payment_type__desti
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_preview_line__mossos_payment_type__desti
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_property__mossos_default_payment_type__desti
+msgid "DESTI - Payment at destination"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "DNI requires a second surname."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,help:pms_l10n_es.field_res_partner_id_number__support_number
 msgid "DNI support number"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "DNI/NIE support number requires exactly 9 characters."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -206,8 +504,20 @@ msgid "Date and time of the last state query"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_property__mossos_default_payment_type
+msgid "Default Mossos payment type"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_ses_communication__operation__b
 msgid "Delete communication"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Departure date and time are required."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -223,10 +533,71 @@ msgstr ""
 #. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_tourism_type_category__display_name
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_wizard__display_name
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__display_name
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__display_name
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__display_name
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__display_name
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__display_name
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_tourism_classification__display_name
 #: model:ir.model.fields,field_description:pms_l10n_es.field_traveller_report_wizard__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__document_number
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__document_number
+msgid "Document Number"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Document issue date is in the future."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Document number cannot contain %."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Document type and issuing country are required."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Document type has no explicit Mossos mapping."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_batch_form
+msgid "Download V24 file"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__account_payment_mode__mossos_payment_type__efect
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_preview_line__mossos_payment_type__efect
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_property__mossos_default_payment_type__efect
+msgid "EFECT - Cash"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Enable Mossos for this establishment first."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -262,8 +633,35 @@ msgid "Error Sending"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__errors
+msgid "Errors"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_room__institution__ertxaintxa
 msgid "Ertxaintxa (soon)"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_preview_line__mossos_payment_source__default
+msgid "Establishment default"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid ""
+"Establishment identifier must contain 9 or 10 uppercase letters/digits."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Establishment name exceeds 40 characters."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -280,9 +678,62 @@ msgid ""
 msgstr ""
 
 #. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/mossos_format.py:0
+#: code:addons/pms_l10n_es/models/mossos_format.py:0
+#, python-format
+msgid "Field %(field)s exceeds %(length)s characters."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Field %(field)s exceeds %(limit)s characters."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Field %s contains a forbidden character."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/mossos_format.py:0
+#: code:addons/pms_l10n_es/models/mossos_format.py:0
+#, python-format
+msgid "Field %s contains a separator or control character."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/mossos_format.py:0
+#: code:addons/pms_l10n_es/models/mossos_format.py:0
+#, python-format
+msgid "Field %s must use the Western alphabet."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__file_data
+msgid "File Data"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_wizard__txt_binary
 #: model:ir.model.fields,field_description:pms_l10n_es.field_traveller_report_wizard__txt_binary
 msgid "File Download"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__file_encoding
+msgid "File Encoding"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__file_number
+msgid "File Number"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -292,8 +743,59 @@ msgid "File Preview"
 msgstr ""
 
 #. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "File number must be between 1 and 999."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__filename
+msgid "Filename"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__firstname
+msgid "First Name"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "First name and first surname are required."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_res_country_state__ine_province_code
+msgid ""
+"First two digits of the first valid Spanish postal code in the linked "
+"cities. Cities are ordered by ID, postal codes by code and ID."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__firstname
+msgid "Firstname"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_pms_mossos_preview__include_previous_arrivals
+msgid ""
+"For reviewing late regularizations. Until communication history is "
+"available, this also includes arrivals already submitted outside B10 PMS."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.actions.server,name:pms_l10n_es.pms_ses_communication_force_send_communication
 msgid "Force Send Communication"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Foreign postal address requires a locality."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -314,8 +816,37 @@ msgid "Generate INE file"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_preview
+msgid "Generate V24 file"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model_terms:ir.ui.view,arch_db:pms_l10n_es.traveller_report_wizard
 msgid "Generate file"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__generated_at
+msgid "Generated At"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__generated_by
+msgid "Generated By"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#, python-format
+msgid ""
+"Generated Mossos files and their traveller snapshots cannot be changed."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_batch__state__generated
+msgid "Generated — awaiting submission"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -351,6 +882,11 @@ msgid "Hijo/a"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_pms_mossos_preview_line__document_number
+msgid "Host document number"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model,name:pms_l10n_es.model_pms_ine_tourism_type_category
 #: model:ir.model.fields,help:pms_l10n_es.field_pms_property__ine_category_id
 msgid "Hotel category in the Ministry of Tourism. Used for INE statistics."
@@ -359,6 +895,10 @@ msgstr ""
 #. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_tourism_type_category__id
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_wizard__id
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__id
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__id
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__id
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__id
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__id
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_tourism_classification__id
 #: model:ir.model.fields,field_description:pms_l10n_es.field_traveller_report_wizard__id
@@ -391,6 +931,27 @@ msgstr ""
 #: model:ir.model.fields,field_description:pms_l10n_es.field_res_partner__ine_code
 #: model:ir.model.fields,field_description:pms_l10n_es.field_res_users__ine_code
 msgid "INE State Code"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__ine_municipality_code
+#: model:ir.model.fields,field_description:pms_l10n_es.field_res_city__ine_municipality_code
+msgid "INE municipality code"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_res_city__ine_municipality_error
+msgid "INE municipality validation"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_res_country_state__ine_province_code
+msgid "INE province code"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_res_country_state__ine_province_error
+msgid "INE province validation"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -463,6 +1024,68 @@ msgid "Institution to send daily guest data."
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_property__mossos_internet
+msgid "Internet at the establishment"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Invalid DNI format."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Invalid DNI/NIE check letter."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Invalid DNI/NIE format."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Invalid NIE format."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Invalid email address."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#, python-format
+msgid "Invalid municipal mapping data: %s"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Invalid telephone length or separator."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_reservation__is_ses
 msgid "Is SES"
 msgstr ""
@@ -475,6 +1098,10 @@ msgstr ""
 #. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_tourism_type_category____last_update
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_wizard____last_update
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch____last_update
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line____last_update
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview____last_update
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line____last_update
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication____last_update
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_tourism_classification____last_update
 #: model:ir.model.fields,field_description:pms_l10n_es.field_traveller_report_wizard____last_update
@@ -482,8 +1109,17 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__lastname
+msgid "Last Name"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_tourism_type_category__write_uid
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_wizard__write_uid
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__write_uid
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__write_uid
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__write_uid
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__write_uid
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__write_uid
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_tourism_classification__write_uid
 #: model:ir.model.fields,field_description:pms_l10n_es.field_traveller_report_wizard__write_uid
@@ -493,10 +1129,25 @@ msgstr ""
 #. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_tourism_type_category__write_date
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ine_wizard__write_date
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__write_date
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__write_date
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__write_date
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__write_date
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__write_date
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_tourism_classification__write_date
 #: model:ir.model.fields,field_description:pms_l10n_es.field_traveller_report_wizard__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__lastname
+msgid "Lastname"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__line_ids
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__line_ids
+msgid "Line"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -510,8 +1161,143 @@ msgid "Log institution traveller report detail"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__account_payment_mode__mossos_payment_type__movil
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_preview_line__mossos_payment_type__movil
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_property__mossos_default_payment_type__movil
+msgid "MOVIL - Mobile payment"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_account_payment_mode__mossos_payment_type
+msgid "Manual correspondence used for receipts linked to this payment mode."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_batch__state__presented
+msgid "Manually confirmed as submitted"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Missing contract date."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Missing planned departure."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Missing postal province."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Missing: %s"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_checkin_partner__mossos_batch_line_ids
+msgid "Mossos Batch Line"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__mossos_payment_source
+msgid "Mossos Payment Source"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__mossos_payment_type
+msgid "Mossos Payment Type"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_property__mossos_property_code
+msgid "Mossos establishment identifier"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model,name:pms_l10n_es.model_pms_mossos_batch_line
+msgid "Mossos exported traveller snapshot"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#, python-format
+msgid ""
+"Mossos file history cannot be deleted. Cancel an unsubmitted file instead."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.actions.act_window,name:pms_l10n_es.action_mossos_batches
+#: model:ir.ui.menu,name:pms_l10n_es.menu_mossos_batches
+msgid "Mossos generated files"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model,name:pms_l10n_es.model_pms_mossos_batch
+msgid "Mossos generated traveller file"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_account_payment_mode__mossos_payment_type
+msgid "Mossos payment type"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model,name:pms_l10n_es.model_pms_mossos_preview
+msgid "Mossos pending arrivals preview"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model,name:pms_l10n_es.model_pms_mossos_preview_line
+msgid "Mossos traveller preview line"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_property__mossos_enabled
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_property_form_pms_l10n_es
+msgid "Mossos traveller register"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.actions.act_window,name:pms_l10n_es.action_mossos_preview
+#: model:ir.ui.menu,name:pms_l10n_es.menu_mossos_preview
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_preview
+msgid "Mossos: preview arrivals"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_room__institution__mossos
 msgid "Mossos_d'esquadra (soon)"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#, python-format
+msgid "Municipal INE candidates do not match the city province."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_res_country_state__ine_municipality_ids
+msgid "Municipalities"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -530,8 +1316,42 @@ msgid "New communication"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_property__mossos_next_file_number
+msgid "Next Mossos file number"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_checkin_partner__ses_partners_relationship__ni
 msgid "Nieto/a"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_property__mossos_internet__n
+msgid "No"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#, python-format
+msgid "No ZIP-to-INE municipality mapping found for this city."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/res_country_state.py:0
+#: code:addons/pms_l10n_es/models/res_country_state.py:0
+#, python-format
+msgid "No linked Spanish city has a valid five-digit postal code."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "No verified province prefix."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -556,6 +1376,68 @@ msgid "Number of attempts to send the communication"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__account_payment_mode__mossos_payment_type__otro
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_preview_line__mossos_payment_type__otro
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_property__mossos_default_payment_type__otro
+msgid "OTRO - Other means of payment"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "Only PMS staff can generate Mossos files."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Only PMS staff can generate traveller files."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#, python-format
+msgid "Only PMS staff can manage Mossos files."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Only PMS staff can preview Mossos arrivals."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#, python-format
+msgid "Only a generated file can be confirmed as submitted."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#, python-format
+msgid "Only an unsubmitted file can be cancelled; enter a reason."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "Only travellers with an actual check-in can be exported."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__operation
 msgid "Operation"
 msgstr ""
@@ -566,8 +1448,21 @@ msgid "Operation of the communication"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_wizard_payment_folio__payment_mode_id
+msgid ""
+"Optional mode assigned to the new receipt, including its Mossos mapping."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_checkin_partner__ses_partners_relationship__ot
 msgid "Otro"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__account_payment_mode__mossos_payment_type__platf
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_preview_line__mossos_payment_type__platf
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_property__mossos_default_payment_type__platf
+msgid "PLATF - Payment platform"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -597,6 +1492,31 @@ msgid "Password provided by institution to send the data."
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_wizard_payment_folio__payment_method_id
+msgid "Payment Method"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model,name:pms_l10n_es.model_account_payment_mode
+msgid "Payment Modes"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_wizard_payment_folio__payment_mode_id
+msgid "Payment mode"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_preview_line__mossos_payment_source__payment
+msgid "Payment mode of the oldest receipt"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model,name:pms_l10n_es.model_wizard_payment_folio
+msgid "Payments"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_reservation__ses_status_reservation__to_send
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_reservation__ses_status_traveller_report__to_send
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_ses_communication__state__to_send
@@ -613,6 +1533,73 @@ msgstr ""
 #. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_property__ine_permanent_staff
 msgid "Permanent Staff"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Planned departure precedes actual arrival."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "Planned departure time must use HH:MM."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__pms_property_id
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__pms_property_id
+msgid "Pms Property"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Postal address is missing, too long or contains a separator."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Postal country requires an ISO alpha-3 code."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Postal province INE code pending: %s"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__presented_at
+msgid "Presented At"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__presented_by
+msgid "Presented By"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_res_city__ine_municipality_previous_code
+msgid ""
+"Preserved during migration for review; not used as an automatic mapping."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_res_city__ine_municipality_previous_code
+msgid "Previously entered INE municipality code"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -663,6 +1650,30 @@ msgid "Range RevPAR"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__receipt_filename
+msgid "Receipt filename"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch_line__record_data
+msgid "Record Data"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_preview
+msgid "Refresh pending arrivals"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid ""
+"Refresh the list: a selected traveller no longer matches the arrival day."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,help:pms_l10n_es.field_pms_property__ine_tourism_number
 msgid ""
 "Registration number in the Ministry of Tourism. Used for INE statistics."
@@ -684,7 +1695,16 @@ msgid "Report type (reservation/traveller report)"
 msgstr ""
 
 #. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "Required Mossos field %s is empty."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model,name:pms_l10n_es.model_pms_reservation
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__reservation_id
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__reservation_id
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_ses_communication__entity__rh
 msgid "Reservation"
@@ -696,13 +1716,60 @@ msgid "Reservation related to this communication"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_pms_mossos_preview_line__reservation_id
+msgid "Reservation to which checkin partners belong"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__traveller_report_wizard__report_type__reservations
 msgid "Reservations Report"
 msgstr ""
 
 #. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Residence country requires an ISO alpha-3 code."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Residence country, street and postal code are required."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Residence locality is required outside Spain."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model_terms:ir.ui.view,arch_db:pms_l10n_es.pms_ses_communication_view_search
 msgid "Results"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Review arrival and departure dates."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview__include_previous_arrivals
+msgid "Review earlier arrivals too"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_preview
+msgid ""
+"Review of earlier arrivals: includes previous stays, including departed "
+"travellers. Travellers already in a generated or submitted B10 file are "
+"excluded. Verify any submissions made outside B10 before using earlier "
+"arrivals."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -786,6 +1853,53 @@ msgid "SOAP response status query"
 msgstr ""
 
 #. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Select an unambiguous INE municipality for the guest residence."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Select arrived guests from the chosen property."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "Select at least one traveller, without duplicate traveller lines."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Select between 1 and 99999 guests."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "Select travellers belonging to the enabled Mossos establishment."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__selected
+msgid "Selected"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__mossos_payment_reference
+msgid "Selected receipt"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__send_attempt_count
 msgid "Send Attempt Count"
 msgstr ""
@@ -814,8 +1928,47 @@ msgid "Ses Url"
 msgstr ""
 
 #. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Set the 9 or 10 character Mossos establishment identifier."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Set the establishment timezone."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_preview
+msgid ""
+"Shows unbatched actual arrivals on the selected day in the establishment "
+"timezone. Generating or downloading a file does not submit it to the portal."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_res_city__ine_municipality_code
+msgid ""
+"Six-digit municipal INE code, resolved through the ZIP-to-INE mapping. The "
+"first five digits are a municipal code, not a ZIP."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_checkin_partner__ses_partners_relationship__sb
 msgid "Sobrino/a"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid ""
+"Some travellers already belong to a generated or submitted file. Open the "
+"existing file instead."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -825,12 +1978,36 @@ msgid "Spanish Tourism Classification"
 msgstr ""
 
 #. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Spanish document exceeds 11 characters."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Spanish postal code requires five digits."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Spanish residence requires a 5-digit postcode and INE province."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,help:pms_l10n_es.field_pms_property__spanish_tourism_classification_id
 #: model:ir.model.fields,help:pms_l10n_es.field_pms_tourism_classification__name
 msgid "Spanish tourism classification."
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__state
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_ses_communication__state
 #: model_terms:ir.ui.view,arch_db:pms_l10n_es.pms_ses_communication_view_search
 msgid "State"
@@ -852,6 +2029,11 @@ msgid "Status of the traveller report in SES"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__receipt_file
+msgid "Submission receipt"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_checkin_partner__ses_partners_relationship__sg
 msgid "Suegro/a"
 msgstr ""
@@ -863,19 +2045,73 @@ msgid "Support number"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__account_payment_mode__mossos_payment_type__tarjt
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_preview_line__mossos_payment_type__tarjt
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_property__mossos_default_payment_type__tarjt
+msgid "TARJT - Credit card"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__account_payment_mode__mossos_payment_type__trans
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_preview_line__mossos_payment_type__trans
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_property__mossos_default_payment_type__trans
+msgid "TRANS - Bank transfer"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__account_payment_mode__mossos_payment_type__treg
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_mossos_preview_line__mossos_payment_type__treg
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_property__mossos_default_payment_type__treg
+msgid "TREG - Gift card"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,help:pms_l10n_es.field_pms_room__in_ine
 msgid "Take it into account to generate INE statistics"
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Telephone or email is required."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#: code:addons/pms_l10n_es/models/pms_mossos_batch.py:0
+#, python-format
+msgid "The cancellation reason can only be edited before submission."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#, python-format
+msgid "The city and its province belong to different countries."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The company VAT is not established."
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_wizard_payment_folio__company_id
+msgid "The company for folio"
+msgstr ""
+
+#. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The company name is not established."
@@ -883,6 +2119,21 @@ msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "The document number cannot contain %% ."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "The document support number must have 9 characters."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The following guests have no residence country set :%s."
@@ -891,12 +2142,14 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The following spanish guests have no state set :%s."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a birthdate."
@@ -905,12 +2158,14 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a city."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a country."
@@ -919,12 +2174,14 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a document number."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a document type."
@@ -933,12 +2190,14 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a lastname."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a name."
@@ -947,12 +2206,14 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a second lastname."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a street."
@@ -961,6 +2222,7 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a support number."
 msgstr ""
@@ -968,12 +2230,14 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a valid zip code."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest does not have a zip code."
@@ -983,12 +2247,15 @@ msgstr ""
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The guest information sending settings is not property set up."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid ""
@@ -1007,6 +2274,17 @@ msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/models/pms_property.py:0
+#: code:addons/pms_l10n_es/models/pms_property.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_export.py:0
+#, python-format
+msgid "The next Mossos file number must be between 1 and 999."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid ""
@@ -1016,6 +2294,38 @@ msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "The number of travellers must be between 1 and 999."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/pms_mossos_payment.py:0
+#: code:addons/pms_l10n_es/models/pms_mossos_payment.py:0
+#, python-format
+msgid "The oldest receipt belongs to another company."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/wizard_payment_folio.py:0
+#: code:addons/pms_l10n_es/wizards/wizard_payment_folio.py:0
+#, python-format
+msgid "The payment mode does not match the company, method or journal."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#: code:addons/pms_l10n_es/models/res_city.py:0
+#, python-format
+msgid "The postal codes point to conflicting municipalities: %s"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The property category is not established."
@@ -1024,12 +2334,15 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The property city is not established."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
@@ -1040,12 +2353,15 @@ msgstr ""
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The property name is not established."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The property phone is not established."
@@ -1054,12 +2370,14 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The property state is not established."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The property street is not established."
@@ -1069,12 +2387,15 @@ msgstr ""
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The property tourism number is not established."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "The property zip is not established."
@@ -1083,12 +2404,14 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The reservation does not have a name."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "The reservations must be from the same property."
@@ -1097,12 +2420,22 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/models/res_country_state.py:0
+#: code:addons/pms_l10n_es/models/res_country_state.py:0
 #, python-format
 msgid "The state {state} of {country} must have an INE code"
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "The traveller must belong to the selected establishment."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "There are no guests onboard."
@@ -1111,12 +2444,14 @@ msgstr ""
 #. module: pms_l10n_es
 #. odoo-python
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "There are some guests not onboard."
 msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid ""
@@ -1126,6 +2461,8 @@ msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
@@ -1143,8 +2480,26 @@ msgid "This Week"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_batch_form
+msgid "This file was cancelled. Do not submit it to the portal."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_mossos_batch_form
+msgid ""
+"This is a saved snapshot. Generating or downloading it does not submit it. "
+"To correct data before submission, enter a reason, cancel this file and "
+"generate a new one."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,help:pms_l10n_es.field_pms_room__institution_independent_account
 msgid "This room has an independent account"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_pms_property__mossos_next_file_number
+msgid "Three-digit filename sequence: 001 to 999, then starts at 001 again."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -1186,10 +2541,31 @@ msgid "Travel record institution"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_batch__traveller_count
+msgid "Traveller Count"
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.actions.act_window,name:pms_l10n_es.action_traveller_report
 #: model:ir.model,name:pms_l10n_es.model_traveller_report_wizard
 #: model:ir.ui.menu,name:pms_l10n_es.menu_traveller_report
 msgid "Traveller Report"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Traveller count differs from the reservation or is outside 1–999."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#: code:addons/pms_l10n_es/wizards/mossos_preview.py:0
+#, python-format
+msgid "Traveller over 14 requires document type, number and issuing country."
 msgstr ""
 
 #. module: pms_l10n_es
@@ -1204,6 +2580,7 @@ msgstr ""
 
 #. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #: code:addons/pms_l10n_es/wizards/traveller_report.py:0
 #, python-format
 msgid "Travellers ReporttravellersReservations Report"
@@ -1243,8 +2620,30 @@ msgid "Unaccompanied minors"
 msgstr ""
 
 #. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Unexpected number of Mossos fields."
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/models/mossos_format.py:0
+#: code:addons/pms_l10n_es/models/mossos_format.py:0
+#, python-format
+msgid "Unexpected number of Mossos record fields."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,field_description:pms_l10n_es.field_pms_property__ine_unpaid_staff
 msgid "Unpaid Staff"
+msgstr ""
+
+#. module: pms_l10n_es
+#. odoo-python
+#: code:addons/pms_l10n_es/wizards/mossos_report.py:0
+#, python-format
+msgid "Unsupported document type: %s"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -1256,6 +2655,13 @@ msgid "Used for INE statistics."
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_pms_property__mossos_default_payment_type
+msgid ""
+"Used when there is no actual receipt or the oldest receipt has no mapped "
+"payment mode. This does not create an accounting payment."
+msgstr ""
+
+#. module: pms_l10n_es
 #: model:ir.model.fields,help:pms_l10n_es.field_pms_property__institution_user
 #: model:ir.model.fields,help:pms_l10n_es.field_pms_room__institution_user
 msgid "User provided by institution to send the data."
@@ -1264,6 +2670,11 @@ msgstr ""
 #. module: pms_l10n_es
 #: model_terms:ir.ui.view,arch_db:pms_l10n_es.pms_ses_communication_view_search
 msgid "Wait checkins"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,field_description:pms_l10n_es.field_pms_mossos_preview_line__wizard_id
+msgid "Wizard"
 msgstr ""
 
 #. module: pms_l10n_es
@@ -1297,7 +2708,28 @@ msgid "Yerno o Nuera"
 msgstr ""
 
 #. module: pms_l10n_es
+#: model:ir.model.fields.selection,name:pms_l10n_es.selection__pms_property__mossos_internet__s
+msgid "Yes"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model_terms:ir.ui.view,arch_db:pms_l10n_es.view_property_form_pms_l10n_es
+msgid "ZIP or city..."
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_pms_mossos_preview_line__firstname
+msgid "host firstname"
+msgstr ""
+
+#. module: pms_l10n_es
+#: model:ir.model.fields,help:pms_l10n_es.field_pms_mossos_preview_line__lastname
+msgid "host lastname"
+msgstr ""
+
+#. module: pms_l10n_es
 #. odoo-python
+#: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #: code:addons/pms_l10n_es/wizards/wizard_ine.py:0
 #, python-format
 msgid "{state_name} does not have the INE Code configured"

@@ -65,6 +65,11 @@ class MossosPreview(models.TransientModel):
                 "arrival", ">=", day_start.astimezone(pytz.utc).replace(tzinfo=None)
             ))
         guests = self.env["pms.checkin.partner"].search(domain, order="arrival, id")
+        reserved = self.env["pms.mossos.batch.line"].search([
+            ("checkin_partner_id", "in", guests.ids),
+            ("batch_id.state", "in", ["generated", "presented"]),
+        ]).checkin_partner_id
+        guests -= reserved
         values = []
         for guest in guests:
             arrival = fields.Datetime.context_timestamp(
@@ -87,6 +92,7 @@ class MossosPreview(models.TransientModel):
                 "errors": "\n".join(errors),
                 "selected": not errors and not issues,
             }))
+        self.batch_id = False
         self.line_ids = [(5, 0, 0)] + values
         return {
             "type": "ir.actions.act_window", "res_model": self._name,

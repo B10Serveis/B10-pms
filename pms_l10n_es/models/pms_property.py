@@ -1,4 +1,5 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 from .mossos_payment import MOSSOS_PAYMENT_TYPES
 
@@ -18,6 +19,16 @@ class PmsProperty(models.Model):
         help="Used when there is no actual receipt or the oldest receipt has no "
         "mapped payment mode. This does not create an accounting payment.",
     )
+
+    mossos_next_file_number = fields.Integer(
+        string="Next Mossos file number", default=1, copy=False,
+        help="Three-digit filename sequence: 001 to 999, then starts at 001 again.",
+    )
+
+    @api.constrains("mossos_next_file_number")
+    def _check_mossos_next_file_number(self):
+        if any(not 1 <= hotel.mossos_next_file_number <= 999 for hotel in self):
+            raise ValidationError(_("The next Mossos file number must be between 1 and 999."))
 
     institution = fields.Selection(
         [

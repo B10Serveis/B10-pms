@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mossos_batch_property_rule" model="ir.rule">
+        <field name="name">Mossos files: allowed company and establishment</field>
+        <field name="model_id" ref="model_pms_mossos_batch"/>
+        <field name="domain_force">[('company_id', 'in', company_ids), ('pms_property_id', 'in', user.pms_property_ids.ids)]</field>
+    </record>
+    <record id="mossos_batch_line_property_rule" model="ir.rule">
+        <field name="name">Mossos travellers: allowed company and establishment</field>
+        <field name="model_id" ref="model_pms_mossos_batch_line"/>
+        <field name="domain_force">[('batch_id.company_id', 'in', company_ids), ('batch_id.pms_property_id', 'in', user.pms_property_ids.ids)]</field>
+    </record>
+</odoo>
